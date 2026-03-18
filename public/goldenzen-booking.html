@@ -9,227 +9,81 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#FAF6EF;
-  --ink2:#F3EDE2;
-  --ink3:#EBE2D3;
-  --gold:#A0681A;
-  --gold2:#C8852A;
-  --gold3:#7A5010;
-  --cream:#2E1F0A;
-  --cream2:#4A3318;
-  --cream3:#6B5035;
-  --muted:#9A8468;
-  --muted2:#C4AD8E;
-  --surface:rgba(255,255,255,0.7);
-  --border:rgba(160,104,26,0.18);
-  --border2:rgba(160,104,26,0.4);
+  --ink:#FAF6EF;--ink2:#F3EDE2;--ink3:#EBE2D3;
+  --gold:#A0681A;--gold2:#C8852A;--gold3:#7A5010;
+  --cream:#2E1F0A;--cream2:#4A3318;--cream3:#6B5035;
+  --muted:#9A8468;--muted2:#C4AD8E;
+  --border:rgba(160,104,26,0.18);--border2:rgba(160,104,26,0.4);
   --r:4px;
 }
 html{background:var(--ink)}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--ink);
-  color:var(--cream);
-  min-height:100vh;
-  font-size:15px;
-  line-height:1.65;
-  background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(160,104,26,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 90% 80%, rgba(160,104,26,0.04) 0%, transparent 60%);
-}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);min-height:100vh;font-size:15px;line-height:1.65;background-image:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(160,104,26,0.07) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 90% 80%,rgba(160,104,26,0.04) 0%,transparent 60%)}
 .wrap{max-width:620px;margin:0 auto;padding:3rem 1.5rem 4rem}
-
-/* ── Header ── */
-.hdr{
-  text-align:center;
-  padding-bottom:2.5rem;
-  margin-bottom:2.5rem;
-  position:relative;
-}
-.hdr::after{
-  content:'';display:block;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  margin-top:2.5rem;
-}
+.hdr{text-align:center;padding-bottom:2.5rem;margin-bottom:2.5rem;position:relative}
+.hdr::after{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin-top:2.5rem}
 .hdr-top{display:flex;justify-content:flex-end;margin-bottom:1.5rem}
 .lang-btn{display:flex;gap:4px;background:rgba(0,0,0,0.04);border:1px solid var(--border);border-radius:20px;padding:3px}
-.lb{
-  padding:4px 14px;border-radius:16px;font-size:11px;letter-spacing:.08em;
-  cursor:pointer;border:none;background:transparent;
-  color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;
-}
+.lb{padding:4px 14px;border-radius:16px;font-size:11px;letter-spacing:.08em;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s}
 .lb.a{background:var(--gold);color:var(--ink);font-weight:500}
 .eyebrow{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;font-weight:400}
 .logo{font-family:'Playfair Display',serif;font-size:42px;font-weight:400;letter-spacing:.02em;color:var(--cream);line-height:1.1}
 .logo em{font-style:italic;color:var(--gold2)}
 .tagline{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.75rem;font-weight:300}
-
-/* ── Step indicator ── */
 .steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:2.5rem}
 .step-i{display:flex;align-items:center;gap:8px}
-.step-n{
-  width:28px;height:28px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:500;
-  border:1px solid rgba(160,104,26,0.22);
-  color:var(--muted);background:transparent;
-  transition:all .3s;flex-shrink:0;
-}
+.step-n{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;border:1px solid rgba(160,104,26,0.22);color:var(--muted);background:transparent;transition:all .3s;flex-shrink:0}
 .step-n.a{border-color:var(--gold);color:var(--gold);background:rgba(160,104,26,0.1)}
 .step-n.d{border-color:rgba(160,104,26,0.4);color:var(--gold3);background:rgba(160,104,26,0.12)}
 .step-l{font-size:11px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
 .step-l.a{color:var(--cream2)}
 .step-sep{width:32px;height:1px;background:rgba(160,104,26,0.12);margin:0 4px;flex-shrink:0}
-
-/* ── Section title ── */
 .ttl{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--cream);margin-bottom:1.5rem;letter-spacing:.01em}
 .ttl em{font-style:italic;color:var(--gold2)}
-
-/* ── Category grid ── */
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
-.cat-card{
-  background:rgba(0,0,0,0.02);
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  padding:1.25rem 1.25rem 1rem;
-  cursor:pointer;
-  transition:all .2s;
-  position:relative;
-  overflow:hidden;
-}
-.cat-card::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(160,104,26,0.06),transparent);
-  opacity:0;transition:opacity .2s;
-}
+.cat-card{background:rgba(0,0,0,0.02);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem 1.25rem 1rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.cat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(160,104,26,0.06),transparent);opacity:0;transition:opacity .2s}
 .cat-card:hover{border-color:var(--border2);transform:translateY(-2px)}
 .cat-card:hover::before{opacity:1}
 .cat-icon{font-size:22px;margin-bottom:.6rem;line-height:1}
 .cat-n{font-size:13px;font-weight:500;color:var(--cream);margin-bottom:3px;letter-spacing:.01em}
 .cat-d{font-size:11px;color:var(--muted);line-height:1.4}
-
-/* ── Service rows ── */
-.svc-row{
-  display:flex;justify-content:space-between;align-items:center;gap:12px;
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  padding:1rem 1.25rem;
-  cursor:pointer;
-  margin-bottom:6px;
-  background:rgba(0,0,0,0.02);
-  transition:all .18s;
-}
+.svc-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;cursor:pointer;margin-bottom:6px;background:rgba(0,0,0,0.02);transition:all .18s}
 .svc-row:hover{border-color:var(--border2);background:rgba(160,104,26,0.05)}
 .svc-n{font-size:14px;color:var(--cream);font-weight:400;margin-bottom:3px}
 .svc-m{font-size:12px;color:var(--muted)}
 .svc-p{font-size:13px;font-weight:500;color:var(--gold);white-space:nowrap}
-
-/* ── Time grid ── */
 .time-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(65px,1fr));gap:6px;margin-top:12px}
-.t-slot{
-  padding:8px 4px;font-size:12px;text-align:center;
-  border:1px solid var(--border);border-radius:var(--r);
-  cursor:pointer;background:transparent;color:var(--muted);
-  transition:all .12s;font-family:'DM Sans',sans-serif;letter-spacing:.02em;
-}
+.t-slot{padding:8px 4px;font-size:12px;text-align:center;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;background:transparent;color:var(--muted);transition:all .12s;font-family:'DM Sans',sans-serif;letter-spacing:.02em}
 .t-slot:hover{border-color:var(--border2);color:var(--cream2)}
 .t-slot.sel{background:rgba(160,104,26,0.12);border-color:var(--gold);color:var(--gold);font-weight:500}
-
-/* ── Cards ── */
-.panel{
-  background:rgba(0,0,0,0.02);
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  padding:1.25rem;
-}
+.panel{background:rgba(0,0,0,0.02);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
 .panel+.panel{margin-top:10px}
 .panel-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem}
-.summary{
-  border:1px solid rgba(160,104,26,0.22);
-  border-radius:var(--r);
-  padding:1rem 1.25rem;
-  background:rgba(160,104,26,0.04);
-  margin-bottom:1.5rem;
-}
+.summary{border:1px solid rgba(160,104,26,0.22);border-radius:var(--r);padding:1rem 1.25rem;background:rgba(160,104,26,0.04);margin-bottom:1.5rem}
 .summary-svc{font-size:15px;color:var(--cream);margin-bottom:5px}
 .summary-meta{font-size:12px;color:var(--muted);line-height:1.8}
-
-/* ── Form ── */
 .fg{margin-bottom:14px}
 .fl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
-.fi{
-  width:100%;padding:11px 14px;
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  font-family:'DM Sans',sans-serif;font-size:14px;
-  background:rgba(0,0,0,0.02);
-  color:var(--cream);
-  transition:border-color .15s;outline:none;
-  -webkit-appearance:none;
-  appearance:none;
-}
+.fi{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:14px;background:rgba(0,0,0,0.02);color:var(--cream);transition:border-color .15s;outline:none;-webkit-appearance:none;appearance:none}
 .fi::placeholder{color:var(--muted2)}
 .fi:focus{border-color:var(--gold)}
 textarea.fi{min-height:80px;resize:vertical}
 input[type="date"].fi::-webkit-calendar-picker-indicator{filter:invert(.6) sepia(1) saturate(2) hue-rotate(5deg)}
-
-/* ── Buttons ── */
-.btn{
-  padding:11px 22px;border-radius:var(--r);
-  cursor:pointer;font-family:'DM Sans',sans-serif;
-  font-size:13px;font-weight:500;letter-spacing:.04em;
-  transition:all .18s;border:1px solid var(--border);
-  background:transparent;color:var(--muted);
-}
+.btn{padding:11px 22px;border-radius:var(--r);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.04em;transition:all .18s;border:1px solid var(--border);background:transparent;color:var(--muted)}
 .btn:hover{border-color:var(--border2);color:var(--cream2)}
-.btn-gold{
-  background:var(--gold);border-color:var(--gold);color:var(--ink);
-  font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:11px;padding:13px 28px;
-}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:11px;padding:13px 28px}
 .btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
 .btn-sm{padding:7px 14px;font-size:12px}
-
-/* ── Divider ── */
-.div-line{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:1.5rem 0}
-
-/* ── Row layout ── */
 .row-r{display:flex;justify-content:flex-end;margin-top:1.25rem}
 .back-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
-
-/* ── Success ── */
 .ok-wrap{text-align:center;padding:4rem 1rem 2rem}
-.ok-ring{
-  width:72px;height:72px;border-radius:50%;
-  border:1px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 2rem;
-  background:rgba(160,104,26,0.07);
-  font-size:24px;color:var(--gold);
-}
+.ok-ring{width:72px;height:72px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;background:rgba(160,104,26,0.07);font-size:24px;color:var(--gold)}
 .ok-ttl{font-family:'Playfair Display',serif;font-size:30px;font-weight:400;color:var(--cream);margin-bottom:.75rem}
 .ok-ref{font-size:13px;color:var(--muted);margin-bottom:.5rem}
 .ok-ref strong{color:var(--gold);font-weight:500;letter-spacing:.06em}
 .ok-note{font-size:13px;color:var(--muted);margin-bottom:2.5rem;max-width:320px;margin-left:auto;margin-right:auto;line-height:1.7}
-
-/* ── Footer ── */
-.footer{
-  margin-top:3rem;
-  padding-top:1.5rem;
-  position:relative;
-  text-align:center;
-  font-size:11px;
-  color:var(--muted2);
-  letter-spacing:.05em;
-  line-height:2;
-}
-.footer::before{
-  content:'';display:block;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--border),transparent);
-  margin-bottom:1.5rem;
-}
-
+.footer{margin-top:3rem;padding-top:1.5rem;position:relative;text-align:center;font-size:11px;color:var(--muted2);letter-spacing:.05em;line-height:2}
+.footer::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:1.5rem}
 @media(max-width:500px){
   .logo{font-size:34px}
   .cat-grid{grid-template-columns:1fr 1fr}
@@ -244,16 +98,13 @@ input[type="date"].fi::-webkit-calendar-picker-indicator{filter:invert(.6) sepia
 <script>
 const T={
   cs:{
-    sub:"Wellness centrum · Praha 6",
-    tagline:"Tělo & mysl v rovnováze",
-    logo:["Golden","Zen"],
+    sub:"Wellness centrum · Praha 6",tagline:"Tělo & mysl v rovnováze",
     steps:["Kategorie","Služba","Datum & čas","Kontakt"],
     back:"← Zpět",cont:"Pokračovat",submit:"Odeslat rezervaci",newBook:"Nová rezervace",
     selDate:"Vyberte datum",times:"Dostupné časy",
     name:"Jméno a příjmení",phone:"Telefonní číslo",note:"Poznámka (volitelné)",
     namePh:"Jana Novák",phonePh:"+420 123 456 789",notePh:"Přijdu s kamarádkou, mám specifické přání...",
-    contactTtl:"Vaše kontaktní údaje",dateTimeTtl:"Vyberte termín",
-    summaryLbl:"Vaše rezervace",
+    contactTtl:"Vaše kontaktní údaje",dateTimeTtl:"Vyberte termín",summaryLbl:"Vaše rezervace",
     okTtl:"Rezervace odeslána",okRef:"Referenční číslo",
     okNote:"Brzy vás budeme kontaktovat pro potvrzení vašeho termínu.",
     footer:"Bělohorská 118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
@@ -263,21 +114,18 @@ const T={
       {id:"couple",icon:"◇",label:"Párová masáž",desc:"Relaxace pro dva"},
       {id:"cosm",icon:"✦",label:"Kosmetika",desc:"Líčení, ošetření pleti, depilace"},
       {id:"pmu",icon:"◈",label:"Permanentní makeup",desc:"Mikroblading, PMU obočí a rtů"},
-      {id:"brows",icon:"◉",label:"Obočí & řasy",desc:"Laminace, barvení, úprava"},
+      {id:"brows",icon:"◉",label:"Obočí & řasy",desc:"Laminace, prodlužování, lifting"},
       {id:"nails",icon:"◆",label:"Nehty",desc:"Manikúra, pedikúra, gelové nehty"},
     ]
   },
   en:{
-    sub:"Wellness centre · Prague 6",
-    tagline:"Body & mind in balance",
-    logo:["Golden","Zen"],
+    sub:"Wellness centre · Prague 6",tagline:"Body & mind in balance",
     steps:["Category","Service","Date & time","Contact"],
     back:"← Back",cont:"Continue",submit:"Send booking",newBook:"New booking",
     selDate:"Select date",times:"Available times",
     name:"Full name",phone:"Phone number",note:"Note (optional)",
     namePh:"Jane Smith",phonePh:"+420 123 456 789",notePh:"Coming with a friend, any special requests...",
-    contactTtl:"Your contact details",dateTimeTtl:"Choose your slot",
-    summaryLbl:"Your booking",
+    contactTtl:"Your contact details",dateTimeTtl:"Choose your slot",summaryLbl:"Your booking",
     okTtl:"Booking sent",okRef:"Reference number",
     okNote:"We'll contact you shortly to confirm your appointment.",
     footer:"Bělohorská 118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
@@ -287,7 +135,7 @@ const T={
       {id:"couple",icon:"◇",label:"Couple massage",desc:"Relaxation for two"},
       {id:"cosm",icon:"✦",label:"Cosmetics",desc:"Makeup, skin treatments, waxing"},
       {id:"pmu",icon:"◈",label:"Permanent makeup",desc:"Microblading, PMU brows & lips"},
-      {id:"brows",icon:"◉",label:"Brows & lashes",desc:"Lamination, tinting, shaping"},
+      {id:"brows",icon:"◉",label:"Brows & lashes",desc:"Lamination, extensions, lifting"},
       {id:"nails",icon:"◆",label:"Nails",desc:"Manicure, pedicure, gel nails"},
     ]
   }
@@ -334,14 +182,36 @@ const SVCS={
     {id:30,cs:"Úprava obočí",en:"Eyebrow shaping",price:180,dur:15},
     {id:31,cs:"Barvení obočí",en:"Eyebrow tinting",price:180,dur:15},
     {id:32,cs:"Henna obočí",en:"Henna brow tint",price:180,dur:15},
-    {id:33,cs:"Barvení řas",en:"Eyelash tinting",price:180,dur:15},
-    {id:34,cs:"Laminace obočí",en:"Brow lamination",price:480,dur:45},
-    {id:35,cs:"Laminace + úprava",en:"Lamination + shaping",price:550,dur:60},
+    {id:33,cs:"Barvení řas",en:"Eyelash tinting",price:150,dur:15},
+    {id:34,cs:"Úprava a barvení obočí",en:"Brow shaping + tinting",price:200,dur:20},
+    {id:35,cs:"Laminace obočí",en:"Brow lamination",price:480,dur:45},
+    {id:36,cs:"Laminace + úprava",en:"Lamination + shaping",price:550,dur:60},
+    {id:37,cs:"Prodlužování řas — řasa na řasu",en:"Lash extensions — classic 1:1",price:850,dur:90},
+    {id:38,cs:"Prodlužování řas — klasik 2 řasy",en:"Lash extensions — 2D classic",price:920,dur:100},
+    {id:39,cs:"Volume řasy 3D",en:"Volume lashes 3D",price:920,dur:110},
+    {id:40,cs:"Volume řasy 5D",en:"Volume lashes 5D",price:950,dur:120},
+    {id:41,cs:"Volume řasy 8D",en:"Volume lashes 8D",price:1050,dur:120},
+    {id:42,cs:"Volume řasy 10D",en:"Volume lashes 10D",price:1150,dur:130},
+    {id:43,cs:"Řasy Katun",en:"Katun lashes",price:1150,dur:130},
+    {id:44,cs:"Lash lifting s barvením",en:"Lash lifting with tinting",price:600,dur:60},
+    {id:45,cs:"Lash lifting + výživa na řasy",en:"Lash lifting + nourishing",price:700,dur:75},
   ],
   nails:[
-    {id:36,cs:"Manikúra",en:"Manicure",price:null,dur:60},
-    {id:37,cs:"Pedikúra",en:"Pedicure",price:null,dur:60},
-    {id:38,cs:"Gelové nehty",en:"Gel nails",price:null,dur:90},
+    {id:50,cs:"Manikúra klasik",en:"Classic manicure",price:250,dur:45},
+    {id:51,cs:"Manikúra s lakováním",en:"Manicure with polish",price:400,dur:60},
+    {id:52,cs:"Manikúra Shellac/Gellac",en:"Shellac/Gellac manicure",price:520,dur:60},
+    {id:53,cs:"Změna barvy bez manikúry",en:"Colour change (no manicure)",price:250,dur:20},
+    {id:54,cs:"Pedikúra klasik",en:"Classic pedicure",price:450,dur:60},
+    {id:55,cs:"Pedikúra s lakováním",en:"Pedicure with polish",price:500,dur:75},
+    {id:56,cs:"Pedikúra Shellac/Gellac",en:"Shellac/Gellac pedicure",price:590,dur:75},
+    {id:57,cs:"Změna barvy bez pedikúry",en:"Colour change (no pedicure)",price:390,dur:20},
+    {id:58,cs:"Footlogix klasik",en:"Footlogix classic",price:600,dur:60},
+    {id:59,cs:"Footlogix s lakováním",en:"Footlogix with polish",price:690,dur:75},
+    {id:60,cs:"Footlogix Shellac/Gellac",en:"Footlogix Shellac/Gellac",price:750,dur:75},
+    {id:61,cs:"Gelové/Akrylové nehty klasik bez barvy",en:"Gel/Acrylic nails — no colour",price:500,dur:90},
+    {id:62,cs:"Gelové/Akrylové nehty s lakováním",en:"Gel/Acrylic nails with polish",price:600,dur:90},
+    {id:63,cs:"Gelové nehty Francie/Ombre/Třpytky (bez podkladu)",en:"French/Ombre/Glitter nails (no base)",price:600,dur:110},
+    {id:64,cs:"Gelové nehty Francie/Ombre/Třpytky (s podkladem)",en:"French/Ombre/Glitter nails (with base)",price:650,dur:120},
   ]
 };
 
@@ -355,10 +225,7 @@ function slots(ds){
   for(let h=wk?10:9;h<21;h++){r.push(pad(h)+":00");if(h<20)r.push(pad(h)+":30")}
   return r;
 }
-function fmtD(d){
-  if(!d)return"";
-  return new Date(d+"T00:00:00").toLocaleDateString(S.lang==="cs"?"cs-CZ":"en-GB",{weekday:"long",day:"numeric",month:"long"});
-}
+function fmtD(d){if(!d)return"";return new Date(d+"T00:00:00").toLocaleDateString(S.lang==="cs"?"cs-CZ":"en-GB",{weekday:"long",day:"numeric",month:"long"})}
 function fmtP(p){return p!=null?p.toLocaleString("cs-CZ")+" Kč":tx().priceOnReq}
 function today(){return new Date().toISOString().split("T")[0]}
 function mkRef(){return"GZ-"+Math.random().toString(36).slice(2,7).toUpperCase()}
@@ -381,11 +248,7 @@ function el(tag,attr,...ch){
   return e;
 }
 
-function render(){
-  const app=document.getElementById("app");
-  app.innerHTML="";
-  app.appendChild(view());
-}
+function render(){const app=document.getElementById("app");app.innerHTML="";app.appendChild(view())}
 
 function hdr(){
   const t=tx();
@@ -422,10 +285,7 @@ function view(){
   [null,s1,s2,s3,s4,s5][S.step]&&w.appendChild([null,s1,s2,s3,s4,s5][S.step]());
   if(S.step<5){
     const f=el("div",{cls:"footer"});
-    tx().footer.split("\n").forEach((line,i)=>{
-      f.appendChild(document.createTextNode(line));
-      if(i<2)f.appendChild(el("br",{}));
-    });
+    tx().footer.split("\n").forEach((line,i)=>{f.appendChild(document.createTextNode(line));if(i<2)f.appendChild(el("br",{}))});
     w.appendChild(f);
   }
   return w;
