@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldenZen — Rezervace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#FAF6EF;
+  --ink2:#F3EDE2;
+  --ink3:#EBE2D3;
+  --gold:#A0681A;
+  --gold2:#C8852A;
+  --gold3:#7A5010;
+  --cream:#2E1F0A;
+  --cream2:#4A3318;
+  --cream3:#6B5035;
+  --muted:#9A8468;
+  --muted2:#C4AD8E;
+  --surface:rgba(255,255,255,0.7);
+  --border:rgba(160,104,26,0.18);
+  --border2:rgba(160,104,26,0.4);
+  --r:4px;
+}
+html{background:var(--ink)}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--ink);
+  color:var(--cream);
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.65;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(160,104,26,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 90% 80%, rgba(160,104,26,0.04) 0%, transparent 60%);
+}
+.wrap{max-width:620px;margin:0 auto;padding:3rem 1.5rem 4rem}
+
+/* ── Header ── */
+.hdr{
+  text-align:center;
+  padding-bottom:2.5rem;
+  margin-bottom:2.5rem;
+  position:relative;
+}
+.hdr::after{
+  content:'';display:block;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin-top:2.5rem;
+}
+.hdr-top{display:flex;justify-content:flex-end;margin-bottom:1.5rem}
+.lang-btn{display:flex;gap:4px;background:rgba(0,0,0,0.04);border:1px solid var(--border);border-radius:20px;padding:3px}
+.lb{
+  padding:4px 14px;border-radius:16px;font-size:11px;letter-spacing:.08em;
+  cursor:pointer;border:none;background:transparent;
+  color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;
+}
+.lb.a{background:var(--gold);color:var(--ink);font-weight:500}
+.eyebrow{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;font-weight:400}
+.logo{font-family:'Playfair Display',serif;font-size:42px;font-weight:400;letter-spacing:.02em;color:var(--cream);line-height:1.1}
+.logo em{font-style:italic;color:var(--gold2)}
+.tagline{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.75rem;font-weight:300}
+
+/* ── Step indicator ── */
+.steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:2.5rem}
+.step-i{display:flex;align-items:center;gap:8px}
+.step-n{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:500;
+  border:1px solid rgba(160,104,26,0.22);
+  color:var(--muted);background:transparent;
+  transition:all .3s;flex-shrink:0;
+}
+.step-n.a{border-color:var(--gold);color:var(--gold);background:rgba(160,104,26,0.1)}
+.step-n.d{border-color:rgba(160,104,26,0.4);color:var(--gold3);background:rgba(160,104,26,0.12)}
+.step-l{font-size:11px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+.step-l.a{color:var(--cream2)}
+.step-sep{width:32px;height:1px;background:rgba(160,104,26,0.12);margin:0 4px;flex-shrink:0}
+
+/* ── Section title ── */
+.ttl{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--cream);margin-bottom:1.5rem;letter-spacing:.01em}
+.ttl em{font-style:italic;color:var(--gold2)}
+
+/* ── Category grid ── */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.cat-card{
+  background:rgba(0,0,0,0.02);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:1.25rem 1.25rem 1rem;
+  cursor:pointer;
+  transition:all .2s;
+  position:relative;
+  overflow:hidden;
+}
+.cat-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(160,104,26,0.06),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.cat-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.cat-card:hover::before{opacity:1}
+.cat-icon{font-size:22px;margin-bottom:.6rem;line-height:1}
+.cat-n{font-size:13px;font-weight:500;color:var(--cream);margin-bottom:3px;letter-spacing:.01em}
+.cat-d{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* ── Service rows ── */
+.svc-row{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:1rem 1.25rem;
+  cursor:pointer;
+  margin-bottom:6px;
+  background:rgba(0,0,0,0.02);
+  transition:all .18s;
+}
+.svc-row:hover{border-color:var(--border2);background:rgba(160,104,26,0.05)}
+.svc-n{font-size:14px;color:var(--cream);font-weight:400;margin-bottom:3px}
+.svc-m{font-size:12px;color:var(--muted)}
+.svc-p{font-size:13px;font-weight:500;color:var(--gold);white-space:nowrap}
+
+/* ── Time grid ── */
+.time-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(65px,1fr));gap:6px;margin-top:12px}
+.t-slot{
+  padding:8px 4px;font-size:12px;text-align:center;
+  border:1px solid var(--border);border-radius:var(--r);
+  cursor:pointer;background:transparent;color:var(--muted);
+  transition:all .12s;font-family:'DM Sans',sans-serif;letter-spacing:.02em;
+}
+.t-slot:hover{border-color:var(--border2);color:var(--cream2)}
+.t-slot.sel{background:rgba(160,104,26,0.12);border-color:var(--gold);color:var(--gold);font-weight:500}
+
+/* ── Cards ── */
+.panel{
+  background:rgba(0,0,0,0.02);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:1.25rem;
+}
+.panel+.panel{margin-top:10px}
+.panel-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem}
+.summary{
+  border:1px solid rgba(160,104,26,0.22);
+  border-radius:var(--r);
+  padding:1rem 1.25rem;
+  background:rgba(160,104,26,0.04);
+  margin-bottom:1.5rem;
+}
+.summary-svc{font-size:15px;color:var(--cream);margin-bottom:5px}
+.summary-meta{font-size:12px;color:var(--muted);line-height:1.8}
+
+/* ── Form ── */
+.fg{margin-bottom:14px}
+.fl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+.fi{
+  width:100%;padding:11px 14px;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  font-family:'DM Sans',sans-serif;font-size:14px;
+  background:rgba(0,0,0,0.02);
+  color:var(--cream);
+  transition:border-color .15s;outline:none;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.fi::placeholder{color:var(--muted2)}
+.fi:focus{border-color:var(--gold)}
+textarea.fi{min-height:80px;resize:vertical}
+input[type="date"].fi::-webkit-calendar-picker-indicator{filter:invert(.6) sepia(1) saturate(2) hue-rotate(5deg)}
+
+/* ── Buttons ── */
+.btn{
+  padding:11px 22px;border-radius:var(--r);
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:500;letter-spacing:.04em;
+  transition:all .18s;border:1px solid var(--border);
+  background:transparent;color:var(--muted);
+}
+.btn:hover{border-color:var(--border2);color:var(--cream2)}
+.btn-gold{
+  background:var(--gold);border-color:var(--gold);color:var(--ink);
+  font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:11px;padding:13px 28px;
+}
+.btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
+.btn-sm{padding:7px 14px;font-size:12px}
+
+/* ── Divider ── */
+.div-line{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:1.5rem 0}
+
+/* ── Row layout ── */
+.row-r{display:flex;justify-content:flex-end;margin-top:1.25rem}
+.back-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+
+/* ── Success ── */
+.ok-wrap{text-align:center;padding:4rem 1rem 2rem}
+.ok-ring{
+  width:72px;height:72px;border-radius:50%;
+  border:1px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 2rem;
+  background:rgba(160,104,26,0.07);
+  font-size:24px;color:var(--gold);
+}
+.ok-ttl{font-family:'Playfair Display',serif;font-size:30px;font-weight:400;color:var(--cream);margin-bottom:.75rem}
+.ok-ref{font-size:13px;color:var(--muted);margin-bottom:.5rem}
+.ok-ref strong{color:var(--gold);font-weight:500;letter-spacing:.06em}
+.ok-note{font-size:13px;color:var(--muted);margin-bottom:2.5rem;max-width:320px;margin-left:auto;margin-right:auto;line-height:1.7}
+
+/* ── Footer ── */
+.footer{
+  margin-top:3rem;
+  padding-top:1.5rem;
+  position:relative;
+  text-align:center;
+  font-size:11px;
+  color:var(--muted2);
+  letter-spacing:.05em;
+  line-height:2;
+}
+.footer::before{
+  content:'';display:block;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin-bottom:1.5rem;
+}
+
+@media(max-width:500px){
+  .logo{font-size:34px}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .steps .step-l{display:none}
+  .steps .step-sep{width:16px}
+  .wrap{padding:2rem 1.25rem 3rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const T={
+  cs:{
+    sub:"Wellness centrum · Praha 6",
+    tagline:"Tělo & mysl v rovnováze",
+    logo:["Golden","Zen"],
+    steps:["Kategorie","Služba","Datum & čas","Kontakt"],
+    back:"← Zpět",cont:"Pokračovat",submit:"Odeslat rezervaci",newBook:"Nová rezervace",
+    selDate:"Vyberte datum",times:"Dostupné časy",
+    name:"Jméno a příjmení",phone:"Telefonní číslo",note:"Poznámka (volitelné)",
+    namePh:"Jana Novák",phonePh:"+420 123 456 789",notePh:"Přijdu s kamarádkou, mám specifické přání...",
+    contactTtl:"Vaše kontaktní údaje",dateTimeTtl:"Vyberte termín",
+    summaryLbl:"Vaše rezervace",
+    okTtl:"Rezervace odeslána",okRef:"Referenční číslo",
+    okNote:"Brzy vás budeme kontaktovat pro potvrzení vašeho termínu.",
+    footer:"Bělohorská 118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
+    priceOnReq:"Cena na dotaz",min:"min",
+    cats:[
+      {id:"sauna",icon:"♨",label:"Masáže",desc:"Thai, olejové, kamenné a další"},
+      {id:"couple",icon:"◇",label:"Párová masáž",desc:"Relaxace pro dva"},
+      {id:"cosm",icon:"✦",label:"Kosmetika",desc:"Líčení, ošetření pleti, depilace"},
+      {id:"pmu",icon:"◈",label:"Permanentní makeup",desc:"Mikroblading, PMU obočí a rtů"},
+      {id:"brows",icon:"◉",label:"Obočí & řasy",desc:"Laminace, barvení, úprava"},
+      {id:"nails",icon:"◆",label:"Nehty",desc:"Manikúra, pedikúra, gelové nehty"},
+    ]
+  },
+  en:{
+    sub:"Wellness centre · Prague 6",
+    tagline:"Body & mind in balance",
+    logo:["Golden","Zen"],
+    steps:["Category","Service","Date & time","Contact"],
+    back:"← Back",cont:"Continue",submit:"Send booking",newBook:"New booking",
+    selDate:"Select date",times:"Available times",
+    name:"Full name",phone:"Phone number",note:"Note (optional)",
+    namePh:"Jane Smith",phonePh:"+420 123 456 789",notePh:"Coming with a friend, any special requests...",
+    contactTtl:"Your contact details",dateTimeTtl:"Choose your slot",
+    summaryLbl:"Your booking",
+    okTtl:"Booking sent",okRef:"Reference number",
+    okNote:"We'll contact you shortly to confirm your appointment.",
+    footer:"Bělohorská 118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
+    priceOnReq:"Price on request",min:"min",
+    cats:[
+      {id:"sauna",icon:"♨",label:"Massages",desc:"Thai, oil, hot stone & more"},
+      {id:"couple",icon:"◇",label:"Couple massage",desc:"Relaxation for two"},
+      {id:"cosm",icon:"✦",label:"Cosmetics",desc:"Makeup, skin treatments, waxing"},
+      {id:"pmu",icon:"◈",label:"Permanent makeup",desc:"Microblading, PMU brows & lips"},
+      {id:"brows",icon:"◉",label:"Brows & lashes",desc:"Lamination, tinting, shaping"},
+      {id:"nails",icon:"◆",label:"Nails",desc:"Manicure, pedicure, gel nails"},
+    ]
+  }
+};
+
+const SVCS={
+  sauna:[
+    {id:2,cs:"Masáž chodidel",en:"Foot massage",price:490,dur:30},
+    {id:3,cs:"Masáž zad a krku",en:"Back & neck massage",price:490,dur:30},
+    {id:4,cs:"Masáž hlavy a krku",en:"Head & neck massage",price:490,dur:30},
+    {id:5,cs:"Tradiční thajská masáž",en:"Traditional Thai massage",price:790,dur:60},
+    {id:6,cs:"Masáž chodidel + koupel",en:"Foot bath + massage",price:890,dur:60},
+    {id:7,cs:"Olejová masáž",en:"Oil massage",price:890,dur:60},
+    {id:8,cs:"Sportovní masáž",en:"Sports massage",price:950,dur:60},
+    {id:9,cs:"Aromatická olejová masáž",en:"Aromatic oil massage",price:990,dur:60},
+    {id:10,cs:"Terapeutická masáž",en:"Therapeutic massage",price:1090,dur:60},
+    {id:11,cs:"Masáž horkými kameny",en:"Hot stone massage",price:1290,dur:90},
+    {id:12,cs:"Bylinná masáž Herbal King",en:"Herbal King massage",price:1450,dur:90},
+  ],
+  couple:[
+    {id:13,cs:"Thajská masáž (pár)",en:"Thai massage (couple)",price:1490,dur:60},
+    {id:14,cs:"Olejová masáž (pár)",en:"Oil massage (couple)",price:1690,dur:60},
+    {id:15,cs:"BIO aromatická masáž (pár)",en:"BIO aromatic massage (couple)",price:1890,dur:60},
+    {id:16,cs:"Tradiční thajská masáž (pár, delší)",en:"Traditional Thai massage (couple, longer)",price:2790,dur:90},
+    {id:17,cs:"Thajská masáž (pár, delší)",en:"Thai massage (couple, longer)",price:3350,dur:120},
+    {id:18,cs:"Olejová masáž (pár, delší)",en:"Oil massage (couple, longer)",price:3600,dur:120},
+  ],
+  cosm:[
+    {id:19,cs:"Základní líčení",en:"Basic makeup",price:650,dur:45},
+    {id:20,cs:"Večerní líčení",en:"Evening makeup",price:850,dur:60},
+    {id:21,cs:"Hluboká masáž obličeje (7 kroků)",en:"Deep facial massage (7 steps)",price:950,dur:60},
+    {id:22,cs:"Depilace (malá)",en:"Waxing (small area)",price:690,dur:30},
+    {id:23,cs:"Depilace (větší)",en:"Waxing (larger area)",price:1350,dur:60},
+    {id:24,cs:"Léčba akné",en:"Acne treatment",price:2450,dur:90},
+    {id:25,cs:"Anti-aging Lipo 4.0",en:"Anti-aging Lipo 4.0",price:3500,dur:90},
+    {id:26,cs:"Léčba pigmentace",en:"Pigmentation treatment",price:5600,dur:120},
+  ],
+  pmu:[
+    {id:27,cs:"Mikroblading obočí",en:"Eyebrow microblading",price:3500,dur:120},
+    {id:28,cs:"PMU rty",en:"PMU lips",price:4000,dur:120},
+    {id:29,cs:"PMU obočí",en:"PMU eyebrows",price:4000,dur:120},
+  ],
+  brows:[
+    {id:30,cs:"Úprava obočí",en:"Eyebrow shaping",price:180,dur:15},
+    {id:31,cs:"Barvení obočí",en:"Eyebrow tinting",price:180,dur:15},
+    {id:32,cs:"Henna obočí",en:"Henna brow tint",price:180,dur:15},
+    {id:33,cs:"Barvení řas",en:"Eyelash tinting",price:180,dur:15},
+    {id:34,cs:"Laminace obočí",en:"Brow lamination",price:480,dur:45},
+    {id:35,cs:"Laminace + úprava",en:"Lamination + shaping",price:550,dur:60},
+  ],
+  nails:[
+    {id:36,cs:"Manikúra",en:"Manicure",price:null,dur:60},
+    {id:37,cs:"Pedikúra",en:"Pedicure",price:null,dur:60},
+    {id:38,cs:"Gelové nehty",en:"Gel nails",price:null,dur:90},
+  ]
+};
+
+const S={step:1,lang:"cs",cat:null,svc:null,date:"",time:"",form:{name:"",phone:"",note:""},lastRef:""};
+function tx(){return T[S.lang]}
+function pad(n){return String(n).padStart(2,"0")}
+function slots(ds){
+  if(!ds)return[];
+  const wk=[0,6].includes(new Date(ds+"T00:00:00").getDay());
+  const r=[];
+  for(let h=wk?10:9;h<21;h++){r.push(pad(h)+":00");if(h<20)r.push(pad(h)+":30")}
+  return r;
+}
+function fmtD(d){
+  if(!d)return"";
+  return new Date(d+"T00:00:00").toLocaleDateString(S.lang==="cs"?"cs-CZ":"en-GB",{weekday:"long",day:"numeric",month:"long"});
+}
+function fmtP(p){return p!=null?p.toLocaleString("cs-CZ")+" Kč":tx().priceOnReq}
+function today(){return new Date().toISOString().split("T")[0]}
+function mkRef(){return"GZ-"+Math.random().toString(36).slice(2,7).toUpperCase()}
+function n(s){return s[S.lang]}
+
+function el(tag,attr,...ch){
+  const e=document.createElement(tag);
+  for(const[k,v]of Object.entries(attr||{})){
+    if(k==="cls")e.className=v;
+    else if(k==="txt")e.textContent=v;
+    else if(k==="htm")e.innerHTML=v;
+    else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);
+    else e.setAttribute(k,v);
+  }
+  for(const c of ch.flat()){
+    if(c==null)continue;
+    if(typeof c==="string"||typeof c==="number")e.appendChild(document.createTextNode(c));
+    else e.appendChild(c);
+  }
+  return e;
+}
+
+function render(){
+  const app=document.getElementById("app");
+  app.innerHTML="";
+  app.appendChild(view());
+}
+
+function hdr(){
+  const t=tx();
+  return el("div",{cls:"hdr"},
+    el("div",{cls:"hdr-top"},
+      el("div",{cls:"lang-btn"},
+        el("button",{cls:"lb"+(S.lang==="cs"?" a":""),onclick:()=>{S.lang="cs";render()}},"CZ"),
+        el("button",{cls:"lb"+(S.lang==="en"?" a":""),onclick:()=>{S.lang="en";render()}},"EN")
+      )
+    ),
+    el("div",{cls:"eyebrow",txt:t.sub}),
+    el("div",{cls:"logo",htm:"Golden<em>Zen</em>"}),
+    el("div",{cls:"tagline",txt:t.tagline})
+  );
+}
+
+function stepBar(){
+  const w=el("div",{cls:"steps"});
+  tx().steps.forEach((lbl,i)=>{
+    const s=i+1,a=s===S.step,d=s<S.step;
+    w.appendChild(el("div",{cls:"step-i"},
+      el("div",{cls:"step-n"+(d?" d":a?" a":""),txt:d?"✓":String(s)}),
+      el("span",{cls:"step-l"+(a?" a":""),txt:lbl})
+    ));
+    if(i<3)w.appendChild(el("div",{cls:"step-sep"}));
+  });
+  return w;
+}
+
+function view(){
+  const w=el("div",{});
+  w.appendChild(hdr());
+  if(S.step<5)w.appendChild(stepBar());
+  [null,s1,s2,s3,s4,s5][S.step]&&w.appendChild([null,s1,s2,s3,s4,s5][S.step]());
+  if(S.step<5){
+    const f=el("div",{cls:"footer"});
+    tx().footer.split("\n").forEach((line,i)=>{
+      f.appendChild(document.createTextNode(line));
+      if(i<2)f.appendChild(el("br",{}));
+    });
+    w.appendChild(f);
+  }
+  return w;
+}
+
+function s1(){
+  const w=el("div",{});
+  w.appendChild(el("h2",{cls:"ttl",txt:tx().steps[0]}));
+  const g=el("div",{cls:"cat-grid"});
+  tx().cats.forEach(c=>{
+    g.appendChild(el("div",{cls:"cat-card",onclick:()=>{S.cat=c;S.step=2;render()}},
+      el("div",{cls:"cat-icon",txt:c.icon}),
+      el("div",{cls:"cat-n",txt:c.label}),
+      el("div",{cls:"cat-d",txt:c.desc})
+    ));
+  });
+  w.appendChild(g);
+  return w;
+}
+
+function s2(){
+  const w=el("div",{});
+  w.appendChild(el("div",{cls:"back-row"},
+    el("button",{cls:"btn btn-sm",onclick:()=>{S.step=1;render()}},tx().back),
+    el("h2",{cls:"ttl",style:"margin:0",txt:S.cat.label})
+  ));
+  (SVCS[S.cat.id]||[]).forEach(s=>{
+    w.appendChild(el("div",{cls:"svc-row",onclick:()=>{S.svc=s;S.step=3;render()}},
+      el("div",{},el("div",{cls:"svc-n",txt:n(s)}),el("div",{cls:"svc-m",txt:s.dur+" "+tx().min})),
+      el("div",{cls:"svc-p",txt:fmtP(s.price)})
+    ));
+  });
+  return w;
+}
+
+function s3(){
+  const w=el("div",{});
+  w.appendChild(el("div",{cls:"back-row"},
+    el("button",{cls:"btn btn-sm",onclick:()=>{S.step=2;render()}},tx().back),
+    el("h2",{cls:"ttl",style:"margin:0",txt:tx().dateTimeTtl})
+  ));
+  const dp=el("div",{cls:"panel"});
+  dp.appendChild(el("div",{cls:"panel-label",txt:tx().selDate}));
+  const di=el("input",{cls:"fi",type:"date",min:today()});
+  di.value=S.date||"";
+  di.addEventListener("input",()=>{S.date=di.value;S.time="";render()});
+  dp.appendChild(di);
+  w.appendChild(dp);
+  if(S.date){
+    const tp=el("div",{cls:"panel"});
+    tp.appendChild(el("div",{cls:"panel-label",txt:tx().times+" · "+fmtD(S.date)}));
+    const tg=el("div",{cls:"time-grid"});
+    slots(S.date).forEach(tm=>{
+      tg.appendChild(el("button",{cls:"t-slot"+(S.time===tm?" sel":""),txt:tm,onclick:()=>{S.time=tm;render()}}));
+    });
+    tp.appendChild(tg);
+    w.appendChild(tp);
+    if(S.time)w.appendChild(el("div",{cls:"row-r"},el("button",{cls:"btn btn-gold",onclick:()=>{S.step=4;render()}},tx().cont)));
+  }
+  return w;
+}
+
+function s4(){
+  const w=el("div",{});
+  w.appendChild(el("div",{cls:"back-row"},
+    el("button",{cls:"btn btn-sm",onclick:()=>{S.step=3;render()}},tx().back),
+    el("h2",{cls:"ttl",style:"margin:0",txt:tx().contactTtl})
+  ));
+  const sum=el("div",{cls:"summary"});
+  sum.appendChild(el("div",{cls:"panel-label",txt:tx().summaryLbl}));
+  sum.appendChild(el("div",{cls:"summary-svc",txt:n(S.svc)}));
+  sum.appendChild(el("div",{cls:"summary-meta",txt:fmtD(S.date)+" · "+S.time+" · "+S.svc.dur+" "+tx().min}));
+  sum.appendChild(el("div",{cls:"summary-meta",style:"color:var(--gold);margin-top:2px",txt:fmtP(S.svc.price)}));
+  w.appendChild(sum);
+  [[tx().name,"text",tx().namePh,"name"],[tx().phone,"tel",tx().phonePh,"phone"]].forEach(([lbl,type,ph,key])=>{
+    const fg=el("div",{cls:"fg"});
+    fg.appendChild(el("label",{cls:"fl",txt:lbl}));
+    const inp=el("input",{cls:"fi",type,placeholder:ph});
+    inp.value=S.form[key]||"";
+    inp.addEventListener("input",()=>{S.form[key]=inp.value});
+    fg.appendChild(inp);
+    w.appendChild(fg);
+  });
+  const nfg=el("div",{cls:"fg"});
+  nfg.appendChild(el("label",{cls:"fl",txt:tx().note}));
+  const ta=el("textarea",{cls:"fi",placeholder:tx().notePh});
+  ta.value=S.form.note||"";
+  ta.addEventListener("input",()=>{S.form.note=ta.value});
+  nfg.appendChild(ta);
+  w.appendChild(nfg);
+  w.appendChild(el("div",{cls:"row-r"},el("button",{cls:"btn btn-gold",onclick:async()=>{
+    if(!S.form.name.trim()||!S.form.phone.trim())return;
+    try{
+      await fetch('/api/booking',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          service_category:S.cat.id,
+          service_name:n(S.svc),
+          client_name:S.form.name,
+          client_phone:S.form.phone,
+          date:S.date,
+          time:S.time,
+          note:S.form.note,
+        })
+      });
+    }catch(e){console.error(e)}
+    S.lastRef=mkRef();S.step=5;render();
+  }},tx().submit)));
+  return w;
+}
+
+function s5(){
+  const w=el("div",{cls:"ok-wrap"});
+  w.appendChild(el("div",{cls:"ok-ring",txt:"✓"}));
+  w.appendChild(el("div",{cls:"ok-ttl",txt:tx().okTtl}));
+  w.appendChild(el("div",{cls:"ok-ref",htm:tx().okRef+": <strong>"+S.lastRef+"</strong>"}));
+  w.appendChild(el("div",{cls:"ok-note",txt:tx().okNote}));
+  w.appendChild(el("button",{cls:"btn btn-gold",onclick:()=>{
+    S.step=1;S.cat=null;S.svc=null;S.date="";S.time="";S.form={name:"",phone:"",note:""};render();
+  }},tx().newBook));
+  return w;
+}
+
+render();
+</script>
+</body>
+</html>
