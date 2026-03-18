@@ -541,15 +541,28 @@ function setLang(l){
 }
 function toggleMenu(){
   const nl=document.querySelector(".nav-links");
-  nl.style.display=nl.style.display==="flex"?"none":"flex";
+  const isOpen=nl.style.display==="flex";
+  nl.style.display=isOpen?"none":"flex";
   nl.style.flexDirection="column";
-  nl.style.position="absolute";
-  nl.style.top="60px";nl.style.left="0";nl.style.right="0";
+  nl.style.position="fixed";
+  nl.style.top="60px";
+  nl.style.left="0";
+  nl.style.right="0";
   nl.style.background="rgba(250,246,239,0.98)";
-  nl.style.padding="1.5rem";
+  nl.style.padding="1.5rem 2rem";
   nl.style.gap="1.25rem";
-  nl.style.borderBottom="1px solid rgba(201,150,58,0.18)";
+  nl.style.borderBottom="1px solid rgba(160,104,26,0.18)";
+  nl.style.zIndex="99";
+  nl.style.width="100%";
+  nl.style.transform="none";
+  nl.style.left="0";
 }
+
+document.querySelectorAll(".nav-links a").forEach(a=>{
+  a.addEventListener("click",()=>{
+    document.querySelector(".nav-links").style.display="none";
+  });
+});
 </script>
 </body>
 </html>
