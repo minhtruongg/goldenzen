@@ -26,7 +26,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
 .hamburger span{display:block;width:22px;height:1px;background:var(--cream)}
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 1.5rem 5rem;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 20%,rgba(200,133,42,0.1) 0%,transparent 65%),radial-gradient(ellipse 50% 60% at 80% 70%,rgba(200,133,42,0.06) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 10% 80%,rgba(200,133,42,0.04) 0%,transparent 50%)}
+.hero-bg{position:absolute;inset:0;background:url(/images/oil_massage.jpg) center/cover no-repeat}.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(250,246,239,0.55) 0%,rgba(250,246,239,0.75) 60%,rgba(250,246,239,0.95) 100%)}
 .hero-lines{position:absolute;inset:0;opacity:.035;background-image:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(160,104,26,.6) 60px)}
 .hero-content{position:relative;max-width:760px}
 .hero-eyebrow{font-size:15px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold2);margin-bottom:1.5rem;font-weight:400}
@@ -150,6 +150,16 @@ footer{background:var(--ink2);border-top:1px solid var(--border);padding:2rem 1.
   </div>
 </div>
 
+<section style="padding:0;overflow:hidden;height:420px;position:relative">
+  <img src="/images/oil_massage.jpg" alt="GoldenZen spa" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+  <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(250,246,239,0.85) 0%,transparent 50%,rgba(250,246,239,0.85) 100%)"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem">
+    <div>
+      <div style="font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem">GoldenZen · Praha 6</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,38px);font-weight:400;color:var(--cream);line-height:1.2">Relaxace, která <em style="font-style:italic;color:var(--gold2)">opravdu funguje</em></div>
+    </div>
+  </div>
+</section>
 <section id="services">
   <div class="container">
     <div class="section-eyebrow" id="svc-ey">Naše služby</div>
@@ -321,9 +331,7 @@ function toggleMenu(){
 }
 document.querySelectorAll(".nav-links a").forEach(a=>{
   a.addEventListener("click",()=>{
-    if(window.innerWidth <= 760){
-      document.querySelector(".nav-links").classList.remove("open");
-    }
+    document.querySelector(".nav-links").classList.remove("open");
   });
 });
 </script>
