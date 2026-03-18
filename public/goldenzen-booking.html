@@ -253,7 +253,10 @@ function render(){const app=document.getElementById("app");app.innerHTML="";app.
 function hdr(){
   const t=tx();
   return el("div",{cls:"hdr"},
-    el("div",{cls:"hdr-top"},
+    el("div",{cls:"hdr-top",style:"justify-content:space-between;align-items:center"},
+      el("a",{href:"goldenzen.html",style:"font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.05em"},
+        "← "+(S.lang==="cs"?"Zpět na web":"Back to website")
+      ),
       el("div",{cls:"lang-btn"},
         el("button",{cls:"lb"+(S.lang==="cs"?" a":""),onclick:()=>{S.lang="cs";render()}},"CZ"),
         el("button",{cls:"lb"+(S.lang==="en"?" a":""),onclick:()=>{S.lang="en";render()}},"EN")
@@ -264,7 +267,6 @@ function hdr(){
     el("div",{cls:"tagline",txt:t.tagline})
   );
 }
-
 function stepBar(){
   const w=el("div",{cls:"steps"});
   tx().steps.forEach((lbl,i)=>{
