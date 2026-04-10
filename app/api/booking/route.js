@@ -37,7 +37,6 @@ export async function POST(req) {
 
     // 3. The New Message Format (Matching your image)
     const msg = [
-      `*GoldenzenBookingBOT*`,
       `*GoldenZen Booking*`,
       `Thời gian Booking: ${bookingTime} - ${bookingDate}`,
       `--------------------------`,
