@@ -40,11 +40,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
 .ttl{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--cream);margin-bottom:1.5rem;letter-spacing:.01em}
 .ttl em{font-style:italic;color:var(--gold2)}
 .amt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.25rem}
-.amt-btn{border:1px solid var(--border);border-radius:var(--r);padding:16px 8px 13px;cursor:pointer;background:rgba(0,0,0,0.02);font-family:'DM Sans',sans-serif;transition:all .18s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px}
+.amt-btn{border:1px solid var(--border);border-radius:var(--r);padding:16px 8px 13px;cursor:pointer;background:rgba(0,0,0,0.02);transition:all .18s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px}
 .amt-btn:hover{border-color:var(--border2);background:rgba(160,104,26,0.05)}
 .amt-btn.sel{border-color:var(--gold);background:rgba(160,104,26,0.09)}
-.amt-val{font-size:17px;font-weight:500;color:var(--cream);letter-spacing:.01em}
-.amt-eff{font-size:13px;color:var(--gold2);font-weight:400;line-height:1.2}
+.amt-val{font-size:17px;font-weight:500;color:var(--cream)}
+.amt-eff{font-size:13px;color:var(--gold2);font-weight:400}
 .amt-badge{font-size:11px;background:rgba(160,104,26,0.12);color:var(--gold2);border:1px solid rgba(160,104,26,0.25);border-radius:2px;padding:1px 5px;letter-spacing:.04em;font-weight:500;margin-top:2px}
 .bonus-panel{border:1px solid rgba(160,104,26,0.2);border-radius:var(--r);padding:.9rem 1.1rem;background:rgba(160,104,26,0.04);margin-bottom:1.5rem;display:flex;flex-direction:column;gap:6px}
 .bonus-row{display:flex;justify-content:space-between;align-items:center;font-size:15px}
@@ -61,7 +61,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
 .fi{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:16px;background:rgba(0,0,0,0.02);color:var(--cream);transition:border-color .15s;outline:none;-webkit-appearance:none;appearance:none}
 .fi::placeholder{color:var(--muted2)}
 .fi:focus{border-color:var(--gold)}
-textarea.fi{min-height:90px;resize:vertical}
 .btn{padding:11px 22px;border-radius:var(--r);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;letter-spacing:.04em;transition:all .18s;border:1px solid var(--border);background:transparent;color:var(--muted)}
 .btn:hover{border-color:var(--border2);color:var(--cream2)}
 .btn-gold{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:15px;padding:13px 28px}
@@ -70,16 +69,16 @@ textarea.fi{min-height:90px;resize:vertical}
 .row-r{display:flex;justify-content:flex-end;margin-top:1.25rem}
 .back-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
 .ok-wrap{text-align:center;padding:3rem 1rem 2rem}
-.pay-box{border:1px solid var(--border2);border-radius:var(--r);padding:1.5rem 1rem;background:rgba(160,104,26,0.04);margin:1.5rem 0;display:inline-block;width:100%;max-width:280px}
-.pay-qr{width:160px;height:160px;object-fit:contain;display:block;margin:0 auto .75rem;border-radius:4px}
-.pay-scan{font-size:14px;color:var(--muted);letter-spacing:.05em;margin-bottom:1rem;line-height:1.5}
-.pay-acct-lbl{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
-.pay-acct{font-size:18px;font-weight:500;color:var(--cream);letter-spacing:.04em}
 .ok-ring{width:72px;height:72px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;background:rgba(160,104,26,0.07);font-size:24px;color:var(--gold)}
 .ok-ttl{font-family:'Playfair Display',serif;font-size:30px;font-weight:400;color:var(--cream);margin-bottom:.75rem}
-.ok-ref{font-size:15px;color:var(--muted);margin-bottom:.5rem}
+.ok-ref{font-size:15px;color:var(--muted);margin-bottom:1.5rem}
 .ok-ref strong{color:var(--gold);font-weight:500;letter-spacing:.06em}
-.ok-note{font-size:15px;color:var(--muted);margin-bottom:2.5rem;max-width:360px;margin-left:auto;margin-right:auto;line-height:1.7}
+.pay-box{border:1px solid var(--border2);border-radius:var(--r);padding:1.5rem 1rem;background:rgba(160,104,26,0.04);display:inline-block;max-width:260px;width:100%;margin-bottom:1.5rem}
+.pay-qr{width:150px;height:150px;object-fit:contain;display:block;margin:0 auto .9rem;border-radius:4px}
+.pay-scan{font-size:14px;color:var(--muted);margin-bottom:.9rem;line-height:1.5}
+.pay-acct-lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.pay-acct{font-size:18px;font-weight:500;color:var(--cream);letter-spacing:.04em}
+.ok-note{font-size:15px;color:var(--muted);margin-bottom:2rem;max-width:340px;margin-left:auto;margin-right:auto;line-height:1.7}
 .footer{margin-top:3rem;padding-top:1.5rem;position:relative;text-align:center;font-size:15px;color:var(--muted2);letter-spacing:.05em;line-height:2}
 .footer::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:1.5rem}
 @media(max-width:500px){
@@ -100,13 +99,13 @@ const T={
     steps:["Hodnota","Údaje"],
     back:"← Zpět",cont:"Pokračovat",submit:"Odeslat objednávku",newOrder:"Nová objednávka",
     chooseTtl:"Vyberte <em>hodnotu</em> poukazu",
-    detailsTtl:"Kontaktní údaje",
-    buyerSec:"Odesílatel",recipSec:"Příjemce",
-    buyerName:"Vaše jméno",buyerPhone:"Telefonní číslo",buyerEmail:"Váš e-mail",
+    detailsTtl:"Vaše kontaktní údaje",
+    buyerSec:"Vaše údaje",
+    buyerName:"Jméno a příjmení",buyerPhone:"Telefonní číslo",buyerEmail:"E-mail",
     buyerNamePh:"Jana Novák",buyerPhonePh:"+420 123 456 789",buyerEmailPh:"jana@example.cz",
     youPay:"Zaplatíte",youGet:"Hodnota poukazu",
     okTtl:"Objednávka přijata",okRef:"Referenční číslo",
-    okScan:S.lang==="cs"?"Naskenujte QR kód nebo převeďte na účet:":"Scan the QR code or transfer to account:",
+    okScan:"Naskenujte QR kód nebo převeďte na účet:",
     okAccount:"1235654003/5500",
     okNote:"Po přijetí platby vám zašleme poukaz e-mailem.",
     footer:"Bělohorská 118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
@@ -116,15 +115,15 @@ const T={
     steps:["Amount","Details"],
     back:"← Back",cont:"Continue",submit:"Send order",newOrder:"New order",
     chooseTtl:"Choose <em>voucher</em> value",
-    detailsTtl:"Contact details",
+    detailsTtl:"Your contact details",
     buyerSec:"Your details",
-    buyerName:"Your name",buyerPhone:"Phone number",buyerEmail:"Your email",
+    buyerName:"Full name",buyerPhone:"Phone number",buyerEmail:"Email",
     buyerNamePh:"Jane Smith",buyerPhonePh:"+420 123 456 789",buyerEmailPh:"jane@example.com",
     youPay:"You pay",youGet:"Voucher value",
     okTtl:"Order received",okRef:"Reference number",
     okScan:"Scan the QR code or transfer to account:",
     okAccount:"1235654003/5500",
-    okNote:"Once payment is received, we'll send the voucher to your email.",
+    okNote:"Once payment is received we'll send the voucher to your email.",
     footer:"Bělohorská 118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
   }
 };
@@ -191,25 +190,29 @@ function view(){
   const w=el("div",{});
   w.appendChild(hdr());
   if(S.step<3)w.appendChild(stepBar());
-  [null,s1,s2,s3][S.step]&&w.appendChild([null,s1,s2,s3][S.step]());
+  if(S.step===1)w.appendChild(s1());
+  else if(S.step===2)w.appendChild(s2());
+  else if(S.step===3)w.appendChild(s3());
   if(S.step<3){
     const f=el("div",{cls:"footer"});
-    tx().footer.split("\n").forEach((line,i)=>{f.appendChild(document.createTextNode(line));if(i<2)f.appendChild(el("br",{}))});
+    tx().footer.split("\n").forEach((line,i)=>{
+      f.appendChild(document.createTextNode(line));
+      if(i<2)f.appendChild(el("br",{}));
+    });
     w.appendChild(f);
   }
   return w;
 }
 
-// Step 1 — choose amount
 function s1(){
   const t=tx();
   const w=el("div",{});
   w.appendChild(el("h2",{cls:"ttl",htm:t.chooseTtl}));
   const g=el("div",{cls:"amt-grid"});
-  AMOUNTS.forEach(a=>{
+  AMOUNTS.forEach(function(a){
     const rate=bonusRate(a);
     const eff=effectiveVal(a);
-    const btn=el("div",{cls:"amt-btn"+(S.amount===a?" sel":""),onclick:()=>{S.amount=a;render()}});
+    const btn=el("div",{cls:"amt-btn"+(S.amount===a?" sel":""),onclick:function(){S.amount=a;render()}});
     btn.appendChild(el("div",{cls:"amt-val",txt:fmtKc(a)}));
     if(rate>0){
       btn.appendChild(el("div",{cls:"amt-eff",txt:"→ "+fmtKc(eff)}));
@@ -218,7 +221,6 @@ function s1(){
     g.appendChild(btn);
   });
   w.appendChild(g);
-  // Bonus info panel
   w.appendChild(el("div",{cls:"bonus-panel"},
     el("div",{cls:"bonus-row"},
       el("span",{cls:"bonus-lbl",txt:t.youPay+" 5 000 Kč"}),
@@ -231,21 +233,19 @@ function s1(){
   ));
   if(S.amount>0){
     w.appendChild(el("div",{cls:"row-r"},
-      el("button",{cls:"btn btn-gold",onclick:()=>{S.step=2;render()}},t.cont)
+      el("button",{cls:"btn btn-gold",onclick:function(){S.step=2;render()}},t.cont)
     ));
   }
   return w;
 }
 
-// Step 2 — fill in details
 function s2(){
   const t=tx();
   const w=el("div",{});
   w.appendChild(el("div",{cls:"back-row"},
-    el("button",{cls:"btn btn-sm",onclick:()=>{S.step=1;render()}},t.back),
+    el("button",{cls:"btn btn-sm",onclick:function(){S.step=1;render()}},t.back),
     el("h2",{cls:"ttl",style:"margin:0",txt:t.detailsTtl})
   ));
-  // Summary
   const rate=bonusRate(S.amount);
   const eff=effectiveVal(S.amount);
   const sum=el("div",{cls:"summary"});
@@ -258,61 +258,58 @@ function s2(){
     el("span",{cls:"s-val gold",txt:fmtKc(eff)+(rate>0?" · +"+(rate*100|0)+" % bonus":"")})
   ));
   w.appendChild(sum);
-  // Buyer fields only
   w.appendChild(el("div",{cls:"form-sep",txt:t.buyerSec}));
   [
     [t.buyerName,"text",t.buyerNamePh,"buyerName"],
     [t.buyerPhone,"tel",t.buyerPhonePh,"buyerPhone"],
     [t.buyerEmail,"email",t.buyerEmailPh,"buyerEmail"],
-  ].forEach(([lbl,type,ph,key])=>{
+  ].forEach(function(row){
+    const lbl=row[0],type=row[1],ph=row[2],key=row[3];
     const fg=el("div",{cls:"fg"});
     fg.appendChild(el("label",{cls:"fl",txt:lbl}));
-    const inp=el("input",{cls:"fi",type,placeholder:ph});
+    const inp=el("input",{cls:"fi",type:type,placeholder:ph});
     inp.value=S.form[key]||"";
-    inp.addEventListener("input",()=>{S.form[key]=inp.value});
+    inp.addEventListener("input",function(){S.form[key]=inp.value});
     fg.appendChild(inp);
     w.appendChild(fg);
   });
-  // Submit
-  w.appendChild(el("div",{cls:"row-r"},el("button",{cls:"btn btn-gold",onclick:async()=>{
-    const f=S.form;
-    if(!f.buyerName.trim()||!f.buyerPhone.trim()||!f.buyerEmail.trim())return;
-    try{
-      await fetch('/api/voucher',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          amount:S.amount,
-          effective_value:eff,
-          buyer_name:f.buyerName,
-          buyer_phone:f.buyerPhone,
-          buyer_email:f.buyerEmail,
-        })
-      });
-      S.lastRef=mkRef();S.step=3;render();
-    }catch(e){console.error(e)}
-  }},t.submit)));
+  w.appendChild(el("div",{cls:"row-r"},
+    el("button",{cls:"btn btn-gold",onclick:async function(){
+      const f=S.form;
+      if(!f.buyerName.trim()||!f.buyerPhone.trim()||!f.buyerEmail.trim())return;
+      try{
+        await fetch("/api/voucher",{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({
+            amount:S.amount,
+            effective_value:eff,
+            buyer_name:f.buyerName,
+            buyer_phone:f.buyerPhone,
+            buyer_email:f.buyerEmail,
+          })
+        });
+        S.lastRef=mkRef();S.step=3;render();
+      }catch(e){console.error(e)}
+    }},t.submit)
+  ));
   return w;
 }
 
-// Step 3 — confirmation with QR payment
 function s3(){
   const t=tx();
   const w=el("div",{cls:"ok-wrap"});
   w.appendChild(el("div",{cls:"ok-ring",txt:"✓"}));
   w.appendChild(el("div",{cls:"ok-ttl",txt:t.okTtl}));
   w.appendChild(el("div",{cls:"ok-ref",htm:t.okRef+": <strong>"+S.lastRef+"</strong>"}));
-  // Payment box
-  const box=el("div",{style:"display:flex;justify-content:center"});
-  const inner=el("div",{cls:"pay-box"});
-  inner.appendChild(el("img",{cls:"pay-qr",src:"payment-qr.jpg",alt:"QR platba"}));
-  inner.appendChild(el("div",{cls:"pay-scan",txt:t.okScan}));
-  inner.appendChild(el("div",{cls:"pay-acct-lbl",txt:"Na účet"}));
-  inner.appendChild(el("div",{cls:"pay-acct",txt:t.okAccount}));
-  box.appendChild(inner);
+  const box=el("div",{cls:"pay-box"});
+  box.appendChild(el("img",{cls:"pay-qr",src:"payment-qr.jpg",alt:"QR platba"}));
+  box.appendChild(el("div",{cls:"pay-scan",txt:t.okScan}));
+  box.appendChild(el("div",{cls:"pay-acct-lbl",txt:"Na účet"}));
+  box.appendChild(el("div",{cls:"pay-acct",txt:t.okAccount}));
   w.appendChild(box);
   w.appendChild(el("div",{cls:"ok-note",txt:t.okNote}));
-  w.appendChild(el("button",{cls:"btn btn-gold",onclick:()=>{
+  w.appendChild(el("button",{cls:"btn btn-gold",onclick:function(){
     S.step=1;S.amount=0;
     S.form={buyerName:"",buyerPhone:"",buyerEmail:""};
     render();
