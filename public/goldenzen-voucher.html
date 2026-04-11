@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldenZen — Dárkové poukazy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#FAF6EF;--ink2:#F3EDE2;--ink3:#EBE2D3;
+  --gold:#A0681A;--gold2:#C8852A;--gold3:#7A5010;
+  --cream:#2E1F0A;--cream2:#4A3318;--cream3:#6B5035;
+  --muted:#9A8468;--muted2:#C4AD8E;
+  --border:rgba(160,104,26,0.18);--border2:rgba(160,104,26,0.4);
+  --r:4px;
+}
+html{background:var(--ink)}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);min-height:100vh;font-size:17px;line-height:1.65;background-image:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(160,104,26,0.07) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 90% 80%,rgba(160,104,26,0.04) 0%,transparent 60%)}
+.wrap{max-width:620px;margin:0 auto;padding:3rem 1.5rem 4rem}
+.hdr{text-align:center;padding-bottom:2.5rem;margin-bottom:2.5rem;position:relative}
+.hdr::after{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin-top:2.5rem}
+.hdr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+.lang-btn{display:flex;gap:4px;background:rgba(0,0,0,0.04);border:1px solid var(--border);border-radius:20px;padding:3px}
+.lb{padding:4px 14px;border-radius:16px;font-size:15px;letter-spacing:.08em;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s}
+.lb.a{background:var(--gold);color:var(--ink);font-weight:500}
+.eyebrow{font-size:15px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;font-weight:400}
+.logo{font-family:'Playfair Display',serif;font-size:42px;font-weight:400;letter-spacing:.02em;color:var(--cream);line-height:1.1}
+.logo em{font-style:italic;color:var(--gold2)}
+.tagline{font-size:16px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:.75rem;font-weight:300}
+.steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:2.5rem}
+.step-i{display:flex;align-items:center;gap:8px}
+.step-n{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;border:1px solid rgba(160,104,26,0.22);color:var(--muted);background:transparent;transition:all .3s;flex-shrink:0}
+.step-n.a{border-color:var(--gold);color:var(--gold);background:rgba(160,104,26,0.1)}
+.step-n.d{border-color:rgba(160,104,26,0.4);color:var(--gold3);background:rgba(160,104,26,0.12)}
+.step-l{font-size:15px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+.step-l.a{color:var(--cream2)}
+.step-sep{width:48px;height:1px;background:rgba(160,104,26,0.12);margin:0 4px;flex-shrink:0}
+.ttl{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;color:var(--cream);margin-bottom:1.5rem;letter-spacing:.01em}
+.ttl em{font-style:italic;color:var(--gold2)}
+.amt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1.25rem}
+.amt-btn{border:1px solid var(--border);border-radius:var(--r);padding:16px 8px 13px;cursor:pointer;background:rgba(0,0,0,0.02);font-family:'DM Sans',sans-serif;transition:all .18s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px}
+.amt-btn:hover{border-color:var(--border2);background:rgba(160,104,26,0.05)}
+.amt-btn.sel{border-color:var(--gold);background:rgba(160,104,26,0.09)}
+.amt-val{font-size:17px;font-weight:500;color:var(--cream);letter-spacing:.01em}
+.amt-eff{font-size:13px;color:var(--gold2);font-weight:400;line-height:1.2}
+.amt-badge{font-size:11px;background:rgba(160,104,26,0.12);color:var(--gold2);border:1px solid rgba(160,104,26,0.25);border-radius:2px;padding:1px 5px;letter-spacing:.04em;font-weight:500;margin-top:2px}
+.bonus-panel{border:1px solid rgba(160,104,26,0.2);border-radius:var(--r);padding:.9rem 1.1rem;background:rgba(160,104,26,0.04);margin-bottom:1.5rem;display:flex;flex-direction:column;gap:6px}
+.bonus-row{display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.bonus-lbl{color:var(--muted)}
+.bonus-val{color:var(--gold);font-weight:500}
+.summary{border:1px solid rgba(160,104,26,0.22);border-radius:var(--r);padding:1rem 1.25rem;background:rgba(160,104,26,0.04);margin-bottom:1.5rem}
+.s-row{display:flex;justify-content:space-between;align-items:baseline;font-size:16px;padding:3px 0}
+.s-lbl{color:var(--muted)}
+.s-val{color:var(--cream);font-weight:500}
+.s-val.gold{color:var(--gold)}
+.form-sep{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:1.25rem 0 1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+.fg{margin-bottom:14px}
+.fl{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;display:block}
+.fi{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:16px;background:rgba(0,0,0,0.02);color:var(--cream);transition:border-color .15s;outline:none;-webkit-appearance:none;appearance:none}
+.fi::placeholder{color:var(--muted2)}
+.fi:focus{border-color:var(--gold)}
+textarea.fi{min-height:90px;resize:vertical}
+.btn{padding:11px 22px;border-radius:var(--r);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;letter-spacing:.04em;transition:all .18s;border:1px solid var(--border);background:transparent;color:var(--muted)}
+.btn:hover{border-color:var(--border2);color:var(--cream2)}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:15px;padding:13px 28px}
+.btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
+.btn-sm{padding:7px 14px;font-size:16px}
+.row-r{display:flex;justify-content:flex-end;margin-top:1.25rem}
+.back-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
+.ok-wrap{text-align:center;padding:4rem 1rem 2rem}
+.ok-ring{width:72px;height:72px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;background:rgba(160,104,26,0.07);font-size:24px;color:var(--gold)}
+.ok-ttl{font-family:'Playfair Display',serif;font-size:30px;font-weight:400;color:var(--cream);margin-bottom:.75rem}
+.ok-ref{font-size:15px;color:var(--muted);margin-bottom:.5rem}
+.ok-ref strong{color:var(--gold);font-weight:500;letter-spacing:.06em}
+.ok-note{font-size:15px;color:var(--muted);margin-bottom:2.5rem;max-width:360px;margin-left:auto;margin-right:auto;line-height:1.7}
+.footer{margin-top:3rem;padding-top:1.5rem;position:relative;text-align:center;font-size:15px;color:var(--muted2);letter-spacing:.05em;line-height:2}
+.footer::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:1.5rem}
+@media(max-width:500px){
+  .logo{font-size:34px}
+  .amt-grid{grid-template-columns:repeat(2,1fr)}
+  .steps .step-l{display:none}
+  .steps .step-sep{width:20px}
+  .wrap{padding:2rem 1.25rem 3rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const T={
+  cs:{
+    sub:"Wellness centrum · Praha 6",tagline:"Darujte zážitek, ne věc",
+    steps:["Hodnota","Údaje"],
+    back:"← Zpět",cont:"Pokračovat",submit:"Odeslat objednávku",newOrder:"Nová objednávka",
+    chooseTtl:"Vyberte <em>hodnotu</em> poukazu",
+    detailsTtl:"Kontaktní údaje",
+    buyerSec:"Odesílatel",recipSec:"Příjemce",
+    buyerName:"Vaše jméno",buyerPhone:"Telefonní číslo",buyerEmail:"Váš e-mail",
+    recipName:"Jméno příjemce",recipEmail:"E-mail příjemce",
+    message:"Osobní vzkaz (volitelné)",
+    buyerNamePh:"Jana Novák",buyerPhonePh:"+420 123 456 789",buyerEmailPh:"jana@example.cz",
+    recipNamePh:"Martin Novák",recipEmailPh:"martin@example.cz",
+    messagePh:"Přeji ti krásné chvíle a zasloužený odpočinek...",
+    youPay:"Zaplatíte",youGet:"Hodnota poukazu",
+    okTtl:"Objednávka odeslána",okRef:"Referenční číslo",
+    okNote:"Obratem vás budeme kontaktovat ohledně platby. Po uhrazení obdržíte poukaz na e-mail a odešlete příjemci.",
+    footer:"Bělohorská 118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
+  },
+  en:{
+    sub:"Wellness centre · Prague 6",tagline:"Give an experience, not a thing",
+    steps:["Amount","Details"],
+    back:"← Back",cont:"Continue",submit:"Send order",newOrder:"New order",
+    chooseTtl:"Choose <em>voucher</em> value",
+    detailsTtl:"Contact details",
+    buyerSec:"Sender",recipSec:"Recipient",
+    buyerName:"Your name",buyerPhone:"Phone number",buyerEmail:"Your email",
+    recipName:"Recipient's name",recipEmail:"Recipient's email",
+    message:"Personal message (optional)",
+    buyerNamePh:"Jane Smith",buyerPhonePh:"+420 123 456 789",buyerEmailPh:"jane@example.com",
+    recipNamePh:"John Smith",recipEmailPh:"john@example.com",
+    messagePh:"Wishing you a wonderful time and well-deserved relaxation...",
+    youPay:"You pay",youGet:"Voucher value",
+    okTtl:"Order sent",okRef:"Reference number",
+    okNote:"We'll contact you shortly regarding payment. Once paid, the voucher will be emailed to you to forward to the recipient.",
+    footer:"Bělohorská 118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
+  }
+};
+
+const AMOUNTS=[500,1000,2000,5000,10000,15000];
+function bonusRate(a){return a>=15000?.4:a>=5000?.3:0}
+function effectiveVal(a){return Math.round(a*(1+bonusRate(a)))}
+function fmtKc(p){return p.toLocaleString("cs-CZ")+" Kč"}
+function mkRef(){return"GZ-V-"+Math.random().toString(36).slice(2,7).toUpperCase()}
+
+const S={step:1,lang:"cs",amount:0,form:{buyerName:"",buyerPhone:"",buyerEmail:"",recipName:"",recipEmail:"",message:""},lastRef:""};
+function tx(){return T[S.lang]}
+function render(){const app=document.getElementById("app");app.innerHTML="";app.appendChild(view())}
+
+function el(tag,attr,...ch){
+  const e=document.createElement(tag);
+  for(const[k,v]of Object.entries(attr||{})){
+    if(k==="cls")e.className=v;
+    else if(k==="txt")e.textContent=v;
+    else if(k==="htm")e.innerHTML=v;
+    else if(k.startsWith("on"))e.addEventListener(k.slice(2),v);
+    else e.setAttribute(k,v);
+  }
+  for(const c of ch.flat()){
+    if(c==null)continue;
+    if(typeof c==="string"||typeof c==="number")e.appendChild(document.createTextNode(c));
+    else e.appendChild(c);
+  }
+  return e;
+}
+
+function hdr(){
+  const t=tx();
+  return el("div",{cls:"hdr"},
+    el("div",{cls:"hdr-top"},
+      el("a",{href:"goldenzen.html",style:"font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.05em"},
+        "← "+(S.lang==="cs"?"Zpět na web":"Back to website")
+      ),
+      el("div",{cls:"lang-btn"},
+        el("button",{cls:"lb"+(S.lang==="cs"?" a":""),onclick:()=>{S.lang="cs";render()}},"CZ"),
+        el("button",{cls:"lb"+(S.lang==="en"?" a":""),onclick:()=>{S.lang="en";render()}},"EN")
+      )
+    ),
+    el("div",{cls:"eyebrow",txt:t.sub}),
+    el("div",{cls:"logo",htm:"Golden<em>Zen</em>"}),
+    el("div",{cls:"tagline",txt:t.tagline})
+  );
+}
+
+function stepBar(){
+  const w=el("div",{cls:"steps"});
+  tx().steps.forEach((lbl,i)=>{
+    const s=i+1,a=s===S.step,d=s<S.step;
+    w.appendChild(el("div",{cls:"step-i"},
+      el("div",{cls:"step-n"+(d?" d":a?" a":""),txt:d?"✓":String(s)}),
+      el("span",{cls:"step-l"+(a?" a":""),txt:lbl})
+    ));
+    if(i<1)w.appendChild(el("div",{cls:"step-sep"}));
+  });
+  return w;
+}
+
+function view(){
+  const w=el("div",{});
+  w.appendChild(hdr());
+  if(S.step<3)w.appendChild(stepBar());
+  [null,s1,s2,s3][S.step]&&w.appendChild([null,s1,s2,s3][S.step]());
+  if(S.step<3){
+    const f=el("div",{cls:"footer"});
+    tx().footer.split("\n").forEach((line,i)=>{f.appendChild(document.createTextNode(line));if(i<2)f.appendChild(el("br",{}))});
+    w.appendChild(f);
+  }
+  return w;
+}
+
+// Step 1 — choose amount
+function s1(){
+  const t=tx();
+  const w=el("div",{});
+  w.appendChild(el("h2",{cls:"ttl",htm:t.chooseTtl}));
+  const g=el("div",{cls:"amt-grid"});
+  AMOUNTS.forEach(a=>{
+    const rate=bonusRate(a);
+    const eff=effectiveVal(a);
+    const btn=el("div",{cls:"amt-btn"+(S.amount===a?" sel":""),onclick:()=>{S.amount=a;render()}});
+    btn.appendChild(el("div",{cls:"amt-val",txt:fmtKc(a)}));
+    if(rate>0){
+      btn.appendChild(el("div",{cls:"amt-eff",txt:"→ "+fmtKc(eff)}));
+      btn.appendChild(el("div",{cls:"amt-badge",txt:"+"+(rate*100|0)+" % bonus"}));
+    }
+    g.appendChild(btn);
+  });
+  w.appendChild(g);
+  // Bonus info panel
+  w.appendChild(el("div",{cls:"bonus-panel"},
+    el("div",{cls:"bonus-row"},
+      el("span",{cls:"bonus-lbl",txt:t.youPay+" 5 000 Kč"}),
+      el("span",{cls:"bonus-val",txt:t.youGet+" 6 500 Kč"})
+    ),
+    el("div",{cls:"bonus-row"},
+      el("span",{cls:"bonus-lbl",txt:t.youPay+" 15 000 Kč"}),
+      el("span",{cls:"bonus-val",txt:t.youGet+" 21 000 Kč"})
+    )
+  ));
+  if(S.amount>0){
+    w.appendChild(el("div",{cls:"row-r"},
+      el("button",{cls:"btn btn-gold",onclick:()=>{S.step=2;render()}},t.cont)
+    ));
+  }
+  return w;
+}
+
+// Step 2 — fill in details
+function s2(){
+  const t=tx();
+  const w=el("div",{});
+  w.appendChild(el("div",{cls:"back-row"},
+    el("button",{cls:"btn btn-sm",onclick:()=>{S.step=1;render()}},t.back),
+    el("h2",{cls:"ttl",style:"margin:0",txt:t.detailsTtl})
+  ));
+  // Summary
+  const rate=bonusRate(S.amount);
+  const eff=effectiveVal(S.amount);
+  const sum=el("div",{cls:"summary"});
+  sum.appendChild(el("div",{cls:"s-row"},
+    el("span",{cls:"s-lbl",txt:t.youPay}),
+    el("span",{cls:"s-val",txt:fmtKc(S.amount)})
+  ));
+  sum.appendChild(el("div",{cls:"s-row"},
+    el("span",{cls:"s-lbl",txt:t.youGet}),
+    el("span",{cls:"s-val gold",txt:fmtKc(eff)+(rate>0?" · +"+(rate*100|0)+" % bonus":"")})
+  ));
+  w.appendChild(sum);
+  // Sender fields
+  w.appendChild(el("div",{cls:"form-sep",txt:t.buyerSec}));
+  [
+    [t.buyerName,"text",t.buyerNamePh,"buyerName"],
+    [t.buyerPhone,"tel",t.buyerPhonePh,"buyerPhone"],
+    [t.buyerEmail,"email",t.buyerEmailPh,"buyerEmail"],
+  ].forEach(([lbl,type,ph,key])=>{
+    const fg=el("div",{cls:"fg"});
+    fg.appendChild(el("label",{cls:"fl",txt:lbl}));
+    const inp=el("input",{cls:"fi",type,placeholder:ph});
+    inp.value=S.form[key]||"";
+    inp.addEventListener("input",()=>{S.form[key]=inp.value});
+    fg.appendChild(inp);
+    w.appendChild(fg);
+  });
+  // Recipient fields
+  w.appendChild(el("div",{cls:"form-sep",txt:t.recipSec}));
+  [
+    [t.recipName,"text",t.recipNamePh,"recipName"],
+    [t.recipEmail,"email",t.recipEmailPh,"recipEmail"],
+  ].forEach(([lbl,type,ph,key])=>{
+    const fg=el("div",{cls:"fg"});
+    fg.appendChild(el("label",{cls:"fl",txt:lbl}));
+    const inp=el("input",{cls:"fi",type,placeholder:ph});
+    inp.value=S.form[key]||"";
+    inp.addEventListener("input",()=>{S.form[key]=inp.value});
+    fg.appendChild(inp);
+    w.appendChild(fg);
+  });
+  // Personal message
+  const mfg=el("div",{cls:"fg"});
+  mfg.appendChild(el("label",{cls:"fl",txt:t.message}));
+  const ta=el("textarea",{cls:"fi",placeholder:t.messagePh});
+  ta.value=S.form.message||"";
+  ta.addEventListener("input",()=>{S.form.message=ta.value});
+  mfg.appendChild(ta);
+  w.appendChild(mfg);
+  // Submit
+  w.appendChild(el("div",{cls:"row-r"},el("button",{cls:"btn btn-gold",onclick:async()=>{
+    const f=S.form;
+    if(!f.buyerName.trim()||!f.buyerPhone.trim()||!f.buyerEmail.trim()||!f.recipName.trim()||!f.recipEmail.trim())return;
+    try{
+      await fetch('/api/voucher',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          amount:S.amount,
+          effective_value:eff,
+          buyer_name:f.buyerName,
+          buyer_phone:f.buyerPhone,
+          buyer_email:f.buyerEmail,
+          recipient_name:f.recipName,
+          recipient_email:f.recipEmail,
+          message:f.message,
+        })
+      });
+      S.lastRef=mkRef();S.step=3;render();
+    }catch(e){console.error(e)}
+  }},t.submit)));
+  return w;
+}
+
+// Step 3 — confirmation
+function s3(){
+  const t=tx();
+  const w=el("div",{cls:"ok-wrap"});
+  w.appendChild(el("div",{cls:"ok-ring",txt:"✓"}));
+  w.appendChild(el("div",{cls:"ok-ttl",txt:t.okTtl}));
+  w.appendChild(el("div",{cls:"ok-ref",htm:t.okRef+": <strong>"+S.lastRef+"</strong>"}));
+  w.appendChild(el("div",{cls:"ok-note",txt:t.okNote}));
+  w.appendChild(el("button",{cls:"btn btn-gold",onclick:()=>{
+    S.step=1;S.amount=0;
+    S.form={buyerName:"",buyerPhone:"",buyerEmail:"",recipName:"",recipEmail:"",message:""};
+    render();
+  }},t.newOrder));
+  return w;
+}
+
+render();
+</script>
+</body>
+</html>
