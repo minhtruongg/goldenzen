@@ -98,9 +98,19 @@ input[type="date"].fi::-webkit-calendar-picker-indicator{filter:invert(.6) sepia
 .ok-note{font-size:15px;color:var(--muted);margin-bottom:2.5rem;max-width:320px;margin-left:auto;margin-right:auto;line-height:1.7}
 .footer{margin-top:3rem;padding-top:1.5rem;position:relative;text-align:center;font-size:15px;color:var(--muted2);letter-spacing:.05em;line-height:2}
 .footer::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:1.5rem}
+.msvc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.msvc-card{border:1px solid var(--border);border-radius:var(--r);padding:.9rem 1rem;background:rgba(0,0,0,0.02);display:flex;flex-direction:column;gap:6px}
+.msvc-name{font-size:15px;color:var(--cream);font-weight:500;line-height:1.35;margin-bottom:2px}
+.msvc-var{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border);border-radius:var(--r);padding:7px 10px;cursor:pointer;background:transparent;font-family:'DM Sans',sans-serif;width:100%;transition:all .15s}
+.msvc-var:hover{border-color:var(--gold);background:rgba(160,104,26,0.07)}
+.msvc-dur{font-size:13px;color:var(--muted);letter-spacing:.04em;white-space:nowrap}
+.msvc-prices{display:flex;flex-direction:column;align-items:flex-end;gap:1px}
+.msvc-orig{font-size:12px;color:var(--muted);text-decoration:line-through;line-height:1}
+.msvc-price{font-size:14px;font-weight:600;color:var(--gold);line-height:1}
 @media(max-width:500px){
   .logo{font-size:34px}
   .cat-grid{grid-template-columns:1fr 1fr}
+  .msvc-grid{grid-template-columns:1fr}
   .steps .step-l{display:none}
   .steps .step-sep{width:16px}
   .wrap{padding:2rem 1.25rem 3rem}
@@ -389,32 +399,56 @@ function s2(){
     el("button",{cls:"btn btn-sm",onclick:()=>{S.step=1;render()}},tx().back),
     el("h2",{cls:"ttl",style:"margin:0",txt:S.cat.label})
   ));
-  (SVCS[S.cat.id]||[]).forEach(s=>{
-    if(s.variants){
-      // Row with variant buttons
-      const row=el("div",{cls:"svc-row",style:"cursor:default"});
-      row.appendChild(el("div",{},el("div",{cls:"svc-n",txt:n(s)})));
-      const vw=el("div",{cls:"svc-variants"});
-      s.variants.forEach(v=>{
-        const btn=el("button",{cls:"var-btn",onclick:()=>{
+  const svcs=SVCS[S.cat.id]||[];
+  if(S.cat.id==="sauna"){
+    // Card grid layout: easier to scan 11 massages at a glance
+    const g=el("div",{cls:"msvc-grid"});
+    svcs.forEach(s=>{
+      const card=el("div",{cls:"msvc-card"});
+      card.appendChild(el("div",{cls:"msvc-name",txt:n(s)}));
+      const variants=s.variants||[{dur:s.dur,price:s.price,orig:s.orig||origPrice(s.price)}];
+      variants.forEach(v=>{
+        const btn=el("button",{cls:"msvc-var",onclick:()=>{
           S.svc={cs:s.cs,en:s.en,dur:v.dur,price:v.price,orig:v.orig};
           S.step=3;render();
         }});
-        btn.appendChild(el("div",{cls:"var-dur",txt:v.dur+" "+tx().min}));
-        btn.appendChild(el("div",{cls:"var-orig",txt:fmtKc(v.orig)}));
-        btn.appendChild(el("div",{cls:"var-price",txt:fmtKc(v.price)}));
-        btn.appendChild(el("div",{cls:"var-badge",txt:tx().sale}));
-        vw.appendChild(btn);
+        btn.appendChild(el("span",{cls:"msvc-dur",txt:v.dur+" "+tx().min}));
+        const pr=el("div",{cls:"msvc-prices"});
+        pr.appendChild(el("span",{cls:"msvc-orig",txt:fmtKc(v.orig)}));
+        pr.appendChild(el("span",{cls:"msvc-price",txt:fmtKc(v.price)}));
+        btn.appendChild(pr);
+        card.appendChild(btn);
       });
-      row.appendChild(vw);
-      w.appendChild(row);
-    } else {
-      w.appendChild(el("div",{cls:"svc-row",onclick:()=>{S.svc=s;S.step=3;render()}},
-        el("div",{},el("div",{cls:"svc-n",txt:n(s)}),el("div",{cls:"svc-m",txt:s.dur+" "+tx().min})),
-        priceEl(s)
-      ));
-    }
-  });
+      g.appendChild(card);
+    });
+    w.appendChild(g);
+  } else {
+    svcs.forEach(s=>{
+      if(s.variants){
+        const row=el("div",{cls:"svc-row",style:"cursor:default"});
+        row.appendChild(el("div",{},el("div",{cls:"svc-n",txt:n(s)})));
+        const vw=el("div",{cls:"svc-variants"});
+        s.variants.forEach(v=>{
+          const btn=el("button",{cls:"var-btn",onclick:()=>{
+            S.svc={cs:s.cs,en:s.en,dur:v.dur,price:v.price,orig:v.orig};
+            S.step=3;render();
+          }});
+          btn.appendChild(el("div",{cls:"var-dur",txt:v.dur+" "+tx().min}));
+          btn.appendChild(el("div",{cls:"var-orig",txt:fmtKc(v.orig)}));
+          btn.appendChild(el("div",{cls:"var-price",txt:fmtKc(v.price)}));
+          btn.appendChild(el("div",{cls:"var-badge",txt:tx().sale}));
+          vw.appendChild(btn);
+        });
+        row.appendChild(vw);
+        w.appendChild(row);
+      } else {
+        w.appendChild(el("div",{cls:"svc-row",onclick:()=>{S.svc=s;S.step=3;render()}},
+          el("div",{},el("div",{cls:"svc-n",txt:n(s)}),el("div",{cls:"svc-m",txt:s.dur+" "+tx().min})),
+          priceEl(s)
+        ));
+      }
+    });
+  }
   return w;
 }
 
