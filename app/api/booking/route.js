@@ -3,34 +3,7 @@ export async function POST(req) {
     const body = await req.json();
     const { service_category, service_name, client_name, client_phone, date, time, note } = body;
 
-    // 1. Save to Supabase (Your original logic)
-    const dbRes = await fetch(`${process.env.SUPABASE_URL}/rest/v1/bookings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': process.env.SUPABASE_KEY,
-        'Authorization': `Bearer ${process.env.SUPABASE_KEY}`,
-        'Prefer': 'return=minimal',
-      },
-      body: JSON.stringify({
-        service_category,
-        service_name,
-        client_name,
-        client_phone,
-        date,
-        time,
-        note: note || '',
-        status: 'pending',
-      }),
-    });
-
-    if (!dbRes.ok) {
-      const err = await dbRes.text();
-      console.error('Supabase error:', err);
-      return Response.json({ ok: false, error: 'Database error' }, { status: 500 });
-    }
-
-    // 2. Generate Reference & Timestamps (New parts for the screenshot look)
+    // 1. Generate Reference & Timestamps
     const bookingDate = new Date().toLocaleDateString('cs-CZ');
     const bookingTime = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
     const refNumber = `GZB${date.replace(/-/g, '').slice(2)}${Math.random().toString(36).slice(2,5).toUpperCase()}`;
@@ -49,7 +22,7 @@ export async function POST(req) {
       note ? `*Ghi chú:* ${note}` : null,
     ].filter(Boolean).join('\n');
 
-    // 4. Send Telegram message
+    // 2. Send Telegram first — always
     const tgRes = await fetch(
       `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`,
       {
@@ -58,7 +31,7 @@ export async function POST(req) {
         body: JSON.stringify({
           chat_id: process.env.TELEGRAM_CHAT_ID,
           text: msg,
-          parse_mode: 'Markdown', // Crucial for bolding
+          parse_mode: 'Markdown',
         }),
       }
     );
@@ -67,6 +40,27 @@ export async function POST(req) {
       const err = await tgRes.text();
       console.error('Telegram error:', err);
     }
+
+    // 3. Save to Supabase (best effort)
+    fetch(`${process.env.SUPABASE_URL}/rest/v1/bookings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': process.env.SUPABASE_KEY,
+        'Authorization': `Bearer ${process.env.SUPABASE_KEY}`,
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({
+        service_category,
+        service_name,
+        client_name,
+        client_phone,
+        date,
+        time,
+        note: note || '',
+        status: 'pending',
+      }),
+    }).catch(err => console.error('Supabase error:', err));
 
     return Response.json({ ok: true });
 

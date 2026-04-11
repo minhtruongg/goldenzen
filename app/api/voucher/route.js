@@ -3,32 +3,7 @@ export async function POST(req) {
     const body = await req.json();
     const { amount, effective_value, buyer_name, buyer_phone, buyer_email } = body;
 
-    // 1. Save to Supabase
-    const dbRes = await fetch(`${process.env.SUPABASE_URL}/rest/v1/voucher_orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': process.env.SUPABASE_KEY,
-        'Authorization': `Bearer ${process.env.SUPABASE_KEY}`,
-        'Prefer': 'return=minimal',
-      },
-      body: JSON.stringify({
-        amount,
-        effective_value,
-        buyer_name,
-        buyer_phone,
-        buyer_email,
-        status: 'pending_payment',
-      }),
-    });
-
-    if (!dbRes.ok) {
-      const err = await dbRes.text();
-      console.error('Supabase error:', err);
-      return Response.json({ ok: false, error: 'Database error' }, { status: 500 });
-    }
-
-    // 2. Build Telegram message
+    // 1. Build Telegram message
     const now = new Date();
     const orderDate = now.toLocaleDateString('cs-CZ');
     const orderTime = now.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
@@ -51,7 +26,7 @@ export async function POST(req) {
       `--------------------------`,
     ].filter(Boolean).join('\n');
 
-    // 3. Send Telegram notification
+    // 2. Send Telegram notification first — always, even if DB fails
     const tgRes = await fetch(
       `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`,
       {
@@ -69,6 +44,25 @@ export async function POST(req) {
       const err = await tgRes.text();
       console.error('Telegram error:', err);
     }
+
+    // 3. Save to Supabase (best effort)
+    fetch(`${process.env.SUPABASE_URL}/rest/v1/voucher_orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': process.env.SUPABASE_KEY,
+        'Authorization': `Bearer ${process.env.SUPABASE_KEY}`,
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({
+        amount,
+        effective_value,
+        buyer_name,
+        buyer_phone,
+        buyer_email,
+        status: 'pending_payment',
+      }),
+    }).catch(err => console.error('Supabase error:', err));
 
     return Response.json({ ok: true });
 
