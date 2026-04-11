@@ -22,24 +22,15 @@ export async function POST(req) {
       note ? `*Ghi chú:* ${note}` : null,
     ].filter(Boolean).join('\n');
 
-    // 2. Send Telegram first — always
-    const tgRes = await fetch(
-      `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`,
-      {
+    // 2. Send Telegram first — always, to all recipients
+    const chatIds = [process.env.TELEGRAM_CHAT_ID, process.env.TELEGRAM_CHAT_ID_2].filter(Boolean);
+    await Promise.all(chatIds.map(chat_id =>
+      fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: process.env.TELEGRAM_CHAT_ID,
-          text: msg,
-          parse_mode: 'Markdown',
-        }),
-      }
-    );
-
-    if (!tgRes.ok) {
-      const err = await tgRes.text();
-      console.error('Telegram error:', err);
-    }
+        body: JSON.stringify({ chat_id, text: msg, parse_mode: 'Markdown' }),
+      }).then(r => { if (!r.ok) r.text().then(e => console.error('Telegram error:', e)); })
+    ));
 
     // 3. Save to Supabase (best effort)
     fetch(`${process.env.SUPABASE_URL}/rest/v1/bookings`, {
