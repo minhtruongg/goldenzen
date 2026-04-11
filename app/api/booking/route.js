@@ -37,17 +37,17 @@ export async function POST(req) {
 
     // 3. The New Message Format (Matching your image)
     const msg = [
-      `*GoldenZen Booking*`,
-      `Thời gian Booking: ${bookingTime} - ${bookingDate}`,
+      `📅 *GoldenZen — Đặt lịch mới*`,
+      `Thời gian đặt: ${bookingTime} - ${bookingDate}`,
       `--------------------------`,
-      `*Mã Booking:*`,
-      `${refNumber}`,
+      `*Mã đặt lịch:* ${refNumber}`,
       `*Dịch vụ:* ${service_name}`,
-      `*Lịch đặt:* ${time} - ${new Date(date).toLocaleDateString('cs-CZ')}`,
-      `*Tên:* ${client_name}`,
+      `*Lịch hẹn:* ${time} - ${new Date(date).toLocaleDateString('cs-CZ')}`,
+      `--------------------------`,
+      `*Tên khách:* ${client_name}`,
       `*Số điện thoại:* ${client_phone}`,
-      `*Tin nhắn:* ${note || 'Ok'}`
-    ].join('\n');
+      note ? `*Ghi chú:* ${note}` : null,
+    ].filter(Boolean).join('\n');
 
     // 4. Send Telegram message
     const tgRes = await fetch(
