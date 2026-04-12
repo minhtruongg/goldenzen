@@ -549,6 +549,10 @@ function s5(){
   return w;
 }
 
+// Pre-select category from URL ?cat=sauna etc.
+const _urlCat=new URLSearchParams(location.search).get('cat');
+if(_urlCat){const _c=T[S.lang].cats.find(c=>c.id===_urlCat);if(_c){S.cat=_c;S.step=2;}}
+
 render();
 </script>
 </body>
