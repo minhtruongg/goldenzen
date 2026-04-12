@@ -528,6 +528,7 @@ function s4(){
           note:S.form.note,
           price_original:S.svc.orig||origPrice(S.svc.price),
           price_final:S.svc.price,
+          duration:S.svc.dur,
         })
       });
       S.lastRef=mkRef();S.step=5;render();

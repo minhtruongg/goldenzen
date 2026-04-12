@@ -1,7 +1,7 @@
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { service_category, service_name, client_name, client_phone, date, time, note, price_original, price_final } = body;
+    const { service_category, service_name, client_name, client_phone, date, time, note, price_original, price_final, duration } = body;
 
     // 1. Generate Reference & Timestamps
     const bookingDate = new Date().toLocaleDateString('cs-CZ');
@@ -16,6 +16,7 @@ export async function POST(req) {
       `*Mã đặt lịch:* ${refNumber}`,
       `*Dịch vụ:* ${service_name}`,
       `*Lịch hẹn:* ${time} - ${new Date(date).toLocaleDateString('cs-CZ')}`,
+      duration ? `*Thời lượng:* ${duration} phút` : null,
       price_final ? `*Giá:* ${Number(price_final).toLocaleString('cs-CZ')} Kč` : null,
       `--------------------------`,
       `*Tên khách:* ${client_name}`,
