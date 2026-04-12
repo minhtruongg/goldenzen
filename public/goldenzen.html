@@ -129,6 +129,7 @@ section{padding:5rem 1.5rem}
 .ci-lbl{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .ci-val{font-size:16px;color:var(--cream2);line-height:1.6}
 .ci-val a{color:var(--gold);text-decoration:none}
+.ci-val a:hover{color:var(--gold2);text-decoration:underline}
 .map-wrap{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;height:300px;background:var(--ink2)}
 .map-wrap iframe{width:100%;height:100%;border:none}
 
@@ -265,7 +266,6 @@ footer{background:var(--ink2);border-top:1px solid var(--border);padding:2rem 1.
   </div>
 </section>
 
-
 <!-- PROMOS -->
 <section id="promos">
   <div class="container">
@@ -315,6 +315,8 @@ footer{background:var(--ink2);border-top:1px solid var(--border);padding:2rem 1.
         <div class="ci-row reveal"><div class="ci-icon">📍</div><div><div class="ci-lbl" id="ci-addr-l">Adresa</div><div class="ci-val">Bělohorská 118<br>Praha 6 – Břevnov</div></div></div>
         <div class="ci-row reveal reveal-delay-1"><div class="ci-icon">📞</div><div><div class="ci-lbl" id="ci-ph-l">Telefon</div><div class="ci-val"><a href="tel:+420778085666">+420 778 085 666</a></div></div></div>
         <div class="ci-row reveal reveal-delay-2"><div class="ci-icon">🕐</div><div><div class="ci-lbl" id="ci-hrs-l">Otevírací doba</div><div class="ci-val" id="ci-hrs-v">Po – Pá: 9:00 – 21:00<br>So – Ne: 10:00 – 21:00</div></div></div>
+        <div class="ci-row reveal reveal-delay-3"><div class="ci-icon">📸</div><div><div class="ci-lbl" id="ci-ig-l">Instagram</div><div class="ci-val"><a href="https://www.instagram.com/goldenzen.cz/" target="_blank" rel="noopener">@goldenzen.cz</a></div></div></div>
+        <div class="ci-row reveal reveal-delay-4"><div class="ci-icon">📘</div><div><div class="ci-lbl" id="ci-fb-l">Facebook</div><div class="ci-val"><a href="https://www.facebook.com/goldenzen.cz?mibextid=wwXIfr&rdid=5ZeauVKZFZUZvEtw&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1E2rkigbYs%2F%3Fmibextid%3DwwXIfr" target="_blank" rel="noopener">goldenzen.cz</a></div></div></div>
       </div>
       <div class="map-wrap reveal reveal-delay-1">
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3620.4613289150025!2d14.363772035099144!3d50.0852991134115!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b95aa30fb52b7%3A0xcdbb843f79cd562!2sGolden%20Zen!5e0!3m2!1sen!2sus!4v1775898236659!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
@@ -357,7 +359,6 @@ const heroBg = document.getElementById('heroBg');
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
   if (heroBg) heroBg.querySelector('img').style.transform = `translateY(${y * 0.35}px)`;
-  // Nav shrink
   document.getElementById('nav').classList.toggle('scrolled', y > 60);
 }, { passive: true });
 
@@ -392,6 +393,7 @@ const LANG={
     "vc-b1":"Bonus 30 %","vc-b2":"při nákupu nad 5 000 Kč","vc-b3":"Bonus 40 %","vc-b4":"při nákupu nad 15 000 Kč",
     "ct-ey":"Kontakt","ct-ttl":"Navštivte <em>nás</em>","ci-addr-l":"Adresa","ci-ph-l":"Telefon","ci-hrs-l":"Otevírací doba",
     "ci-hrs-v":"Po – Pá: 9:00 – 21:00<br>So – Ne: 10:00 – 21:00",
+    "ci-ig-l":"Instagram","ci-fb-l":"Facebook",
     "bk-ey":"Online rezervace","bk-ttl":"Rezervujte si <em>svůj čas</em><br>ještě dnes",
     "bk-sub":"Vyberte službu, zvolte termín a my se postaráme o zbytek. Rychle, jednoduše, online.",
     "bk-cta":"Přejít na rezervaci","ft-copy":"© 2025 GoldenZen · Bělohorská 118, Praha 6"
@@ -425,6 +427,7 @@ const LANG={
     "vc-b1":"30% bonus","vc-b2":"on vouchers over 5 000 CZK","vc-b3":"40% bonus","vc-b4":"on vouchers over 15 000 CZK",
     "ct-ey":"Contact","ct-ttl":"Come <em>visit us</em>","ci-addr-l":"Address","ci-ph-l":"Phone","ci-hrs-l":"Opening hours",
     "ci-hrs-v":"Mon – Fri: 9am – 9pm<br>Sat – Sun: 10am – 9pm",
+    "ci-ig-l":"Instagram","ci-fb-l":"Facebook",
     "bk-ey":"Online booking","bk-ttl":"Book your <em>time</em><br>today",
     "bk-sub":"Choose a service, pick a slot, and we'll take care of the rest. Fast, simple, online.",
     "bk-cta":"Go to booking","ft-copy":"© 2025 GoldenZen · Bělohorská 118, Prague 6"
