@@ -134,7 +134,7 @@ const T={
     footer:"Bělohorská 118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
     priceOnReq:"Cena na dotaz",min:"min",sale:"-30%",
     cats:[
-      {id:"sauna",icon:"♨",label:"Masáže",desc:"Thai, olejové, kamenné a další"},
+      {id:"massage",icon:"♨",label:"Masáže",desc:"Thai, olejové, kamenné a další"},
       {id:"couple",icon:"◇",label:"Párová masáž",desc:"Relaxace pro dva"},
       {id:"cosm",icon:"✦",label:"Kosmetika",desc:"Líčení, ošetření pleti, depilace"},
       {id:"pmu",icon:"◈",label:"Permanentní makeup",desc:"Mikroblading, PMU obočí a rtů"},
@@ -168,7 +168,7 @@ const T={
 };
 
 const SVCS={
-  sauna:[
+  massage:[
     {id:2,cs:"Masáž chodidel",en:"Foot massage",variants:[
       {dur:30,price:490,orig:700}
     ]},
@@ -189,11 +189,13 @@ const SVCS={
     ]},
     {id:7,cs:"Olejová masáž",en:"Oil massage",variants:[
       {dur:60,price:890,orig:1290},
-      {dur:90,price:1290,orig:1890}
+      {dur:90,price:1290,orig:1890},
+      {dur:120,price:1780,orig:2580}
     ]},
     {id:8,cs:"Sportovní masáž",en:"Sports massage",variants:[
       {dur:60,price:950,orig:1350},
-      {dur:90,price:1390,orig:1990}
+      {dur:90,price:1390,orig:1990},
+      {dur:120,price:1900,orig:2700}
     ]},
     {id:9,cs:"Aromatická olejová masáž",en:"Aromatic oil massage",variants:[
       {dur:60,price:990,orig:1390},
@@ -202,20 +204,23 @@ const SVCS={
     ]},
     {id:10,cs:"Terapeutická masáž",en:"Therapeutic massage",variants:[
       {dur:60,price:1090,orig:1490},
-      {dur:90,price:1550,orig:2250}
+      {dur:90,price:1550,orig:2250},
+      {dur:120,price:2180,orig:2980}
     ]},
     {id:11,cs:"Masáž horkými kameny",en:"Hot stone massage",variants:[
       {dur:60,price:1450,orig:1890},
-      {dur:90,price:1950,orig:2790}
+      {dur:90,price:1590,orig:2790},
+      {dur:120,price:1990,orig:3780}
     ]},
     {id:12,cs:"Bylinná masáž Herbal King",en:"Herbal King massage",variants:[
       {dur:60,price:1450,orig:1890},
-      {dur:90,price:2090,orig:2990}
+      {dur:90,price:2050,orig:2990},
+      {dur:120,price:2900,orig:3780}
     ]},
   ],
   couple:[
     {id:13,cs:"Thajská masáž (pár)",en:"Thai massage (couple)",variants:[{dur:60,price:1590,orig:2271},{dur:90,price:2690,orig:3843},{dur:120,price:3350,orig:4786}]},
-    {id:14,cs:"Olejová masáž (pár)",en:"Oil massage (couple)",variants:[{dur:60,price:1790,orig:2557},{dur:90,price:2790,orig:3986}, {dur:120,price:3600,orig:5143}]},
+    {id:14,cs:"Olejová masáž (pár)",en:"Oil massage (couple)",variants:[{dur:60,price:1790,orig:2557},{dur:90,price:2790,orig:3986}, {dur:120,price:3580,orig:5143}]},
     {id:15,cs:"BIO aromatická masáž (pár)",en:"BIO aromatic massage (couple)",variants:[{dur:60,price:1890,orig:2700}, {dur:90,price:2950,orig:4214}, {dur:120,price:3850,orig:5500}]},
     {id:19,cs:"Masáž horkými kameny (pár)",en:"Hot stone massage (couple)",variants:[{dur:60,price:1990,orig:2843},{dur:90,price:2980,orig:4257},{dur:120,price:3950,orig:5643}]},
   ],
@@ -400,8 +405,8 @@ function s2(){
     el("h2",{cls:"ttl",style:"margin:0",txt:S.cat.label})
   ));
   const svcs=SVCS[S.cat.id]||[];
-  if(S.cat.id==="sauna" || S.cat.id==="couple"){
-    // Card grid layout: easier to scan 11 massages at a glance
+  if(S.cat.id==="massage" || S.cat.id==="couple"){
+    // Card grid layout: easier to scan massages at a glance
     const g=el("div",{cls:"msvc-grid"});
     svcs.forEach(s=>{
       const card=el("div",{cls:"msvc-card"});
@@ -563,7 +568,7 @@ function s5(){
   return w;
 }
 
-// Pre-select category from URL ?cat=sauna etc.
+// Pre-select category from URL ?cat=massage etc.
 const _urlCat=new URLSearchParams(location.search).get('cat');
 if(_urlCat){const _c=T[S.lang].cats.find(c=>c.id===_urlCat);if(_c){S.cat=_c;S.step=2;}}
 
