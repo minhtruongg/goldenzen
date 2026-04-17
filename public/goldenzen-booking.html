@@ -501,7 +501,20 @@ function s4(){
     fg.appendChild(el("label",{cls:"fl",txt:lbl}));
     const inp=el("input",{cls:"fi",type,placeholder:ph});
     inp.value=S.form[key]||"";
-    inp.addEventListener("input",()=>{S.form[key]=inp.value});
+    inp.addEventListener("input",()=>{
+      if(key==="phone"){
+        // Allow only digits and limit to 9 digits for Czech phone numbers
+        let val=inp.value.replace(/\D/g,"").slice(0,9);
+        // Format as xxx xxx xxx
+        if(val.length>0){
+          val=val.slice(0,3)+(val.length>3?" "+val.slice(3,6):"")+(val.length>6?" "+val.slice(6,9):"");
+        }
+        inp.value=val;
+        S.form[key]=val.replace(/\s/g,"");
+      }else{
+        S.form[key]=inp.value;
+      }
+    });
     fg.appendChild(inp);
     w.appendChild(fg);
   });
@@ -513,7 +526,8 @@ function s4(){
   nfg.appendChild(ta);
   w.appendChild(nfg);
   w.appendChild(el("div",{cls:"row-r"},el("button",{cls:"btn btn-gold",onclick:async()=>{
-    if(!S.form.name.trim()||!S.form.phone.trim())return;
+    if(!S.form.name.trim()){alert(S.lang==="cs"?"Prosím zadejte jméno":"Please enter your name");return;}
+    if(!S.form.phone.trim()||S.form.phone.length!==9){alert(S.lang==="cs"?"Prosím zadejte přesně 9 číslic":"Please enter exactly 9 digits");return;}
     try{
       await fetch('/api/booking',{
         method:'POST',
