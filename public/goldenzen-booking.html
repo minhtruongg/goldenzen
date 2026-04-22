@@ -313,7 +313,7 @@ function slots(ds){
 function fmtD(d){if(!d)return"";return new Date(d+"T00:00:00").toLocaleDateString(S.lang==="cs"?"cs-CZ":"en-GB",{weekday:"long",day:"numeric",month:"long"})}
 function fmtKc(p){return p.toLocaleString("cs-CZ")+" Kč"}
 function origPrice(p){return Math.round(p/0.7)}
-function today(){return new Date().toISOString().split("T")[0]}
+function today(){const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
 function mkRef(){return"GZ-"+Math.random().toString(36).slice(2,7).toUpperCase()}
 function n(s){return s[S.lang]}
 
@@ -472,9 +472,10 @@ function s3(){
   ));
   const dp=el("div",{cls:"panel"});
   dp.appendChild(el("div",{cls:"panel-label",txt:tx().selDate}));
+  if(S.date&&S.date<today()){S.date="";S.time="";}
   const di=el("input",{cls:"fi",type:"date",min:today()});
   di.value=S.date||"";
-  di.addEventListener("input",()=>{S.date=di.value;S.time="";render()});
+  di.addEventListener("input",()=>{if(di.value&&di.value<today()){di.value=today();}S.date=di.value;S.time="";render()});
   dp.appendChild(di);
   w.appendChild(dp);
   if(S.date){
