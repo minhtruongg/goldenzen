@@ -302,6 +302,11 @@ function slots(ds){
   const wk=[0,6].includes(new Date(ds+"T00:00:00").getDay());
   const r=[];
   for(let h=wk?10:9;h<21;h++){r.push(pad(h)+":00");if(h<20)r.push(pad(h)+":30")}
+  if(ds===today()){
+    const now=new Date();
+    const nowMin=now.getHours()*60+now.getMinutes();
+    return r.filter(tm=>{const[hh,mm]=tm.split(":").map(Number);return hh*60+mm>nowMin;});
+  }
   return r;
 }
 function fmtD(d){if(!d)return"";return new Date(d+"T00:00:00").toLocaleDateString(S.lang==="cs"?"cs-CZ":"en-GB",{weekday:"long",day:"numeric",month:"long"})}
