@@ -107,6 +107,7 @@ input[type="date"].fi::-webkit-calendar-picker-indicator{filter:invert(.6) sepia
 .msvc-prices{display:flex;flex-direction:column;align-items:flex-end;gap:1px}
 .msvc-orig{font-size:12px;color:var(--muted);text-decoration:line-through;line-height:1}
 .msvc-price{font-size:14px;font-weight:600;color:var(--gold);line-height:1}
+.svc-grp-hdr{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-top:1.25rem;margin-bottom:6px;padding-left:2px;font-weight:500}
 @media(max-width:500px){
   .logo{font-size:34px}
   .cat-grid{grid-template-columns:1fr 1fr}
@@ -258,19 +259,19 @@ const SVCS={
     {id:45,cs:"Lash lifting + výživa na řasy",en:"Lash lifting + nourishing",price:700,dur:75},
   ],
   hair:[
-    {id:70,cs:"Pánský střih klasický (senioři 60+)",en:"Men's classic cut (seniors 60+)",price:290,orig:450,dur:30},
-    {id:71,cs:"Pánský střih styling",en:"Men's styling cut",price:350,orig:500,dur:45},
-    {id:72,cs:"Pánský střih vousů",en:"Men's beard trim",price:150,orig:250,dur:20},
-    {id:73,cs:"Dámský střih krátké vlasy (styling)",en:"Women's short hair cut (styling)",price:490,orig:690,dur:45},
-    {id:74,cs:"Dámský střih dlouhé vlasy (styling)",en:"Women's long hair cut (styling)",price:690,orig:990,dur:60},
-    {id:75,cs:"Dětský střih klučičí",en:"Boy's haircut",price:250,orig:350,dur:20},
-    {id:76,cs:"Dětský střih holčičí",en:"Girl's haircut",price:490,orig:700,dur:30},
-    {id:77,cs:"Pánské barvení vlasů",en:"Men's hair colouring",price:850,orig:1190,dur:60},
-    {id:78,cs:"Dámské barvení vlasů krátké",en:"Women's short hair colouring",price:850,orig:1190,dur:60},
-    {id:79,cs:"Dámské barvení vlasů dlouhé",en:"Women's long hair colouring",price:1290,orig:1890,dur:90},
-    {id:80,cs:"Dámské barvení krátkých vlasů baleáž",en:"Women's short hair balayage",price:2000,orig:2850,dur:120},
-    {id:81,cs:"Dámské barvení dlouhých vlasů baleáž",en:"Women's long hair balayage",price:3000,orig:4290,dur:150},
-    {id:82,cs:"Mytí + foukaná",en:"Wash & blow-dry",price:590,orig:890,dur:30},
+    {id:70,grp:{cs:"Pánské",en:"Men's"},cs:"Střih klasický (senioři 60+)",en:"Classic cut (seniors 60+)",price:290,orig:450,dur:30},
+    {id:71,cs:"Střih styling",en:"Styling cut",price:350,orig:500,dur:45},
+    {id:72,cs:"Střih vousů",en:"Beard trim",price:150,orig:250,dur:20},
+    {id:77,cs:"Barvení vlasů",en:"Hair colouring",price:850,orig:1190,dur:60},
+    {id:73,grp:{cs:"Dámské",en:"Women's"},cs:"Střih krátké vlasy",en:"Short hair cut",price:490,orig:690,dur:45},
+    {id:74,cs:"Střih dlouhé vlasy",en:"Long hair cut",price:690,orig:990,dur:60},
+    {id:78,cs:"Barvení krátkých vlasů",en:"Short hair colouring",price:850,orig:1190,dur:60},
+    {id:79,cs:"Barvení dlouhých vlasů",en:"Long hair colouring",price:1290,orig:1890,dur:90},
+    {id:80,cs:"Baleáž krátké vlasy",en:"Short balayage",price:2000,orig:2850,dur:120},
+    {id:81,cs:"Baleáž dlouhé vlasy",en:"Long balayage",price:3000,orig:4290,dur:150},
+    {id:75,grp:{cs:"Dětské",en:"Children's"},cs:"Střih klučičí",en:"Boy's haircut",price:250,orig:350,dur:20},
+    {id:76,cs:"Střih holčičí",en:"Girl's haircut",price:490,orig:700,dur:30},
+    {id:82,grp:{cs:"Ošetření & péče",en:"Treatments & care"},cs:"Mytí + foukaná",en:"Wash & blow-dry",price:590,orig:890,dur:30},
     {id:83,cs:"Regenerační mytí vlasů a masáž",en:"Regenerating wash & scalp massage",price:1750,orig:2500,dur:60},
     {id:84,cs:"Keratinová vlasová kúra + mytí + foukaná",en:"Keratin treatment + wash + blow-dry",price:690,orig:990,dur:60},
   ],
@@ -434,6 +435,7 @@ function s2(){
     w.appendChild(g);
   } else {
     svcs.forEach(s=>{
+      if(s.grp)w.appendChild(el("div",{cls:"svc-grp-hdr",txt:s.grp[S.lang]}));
       if(s.variants){
         const row=el("div",{cls:"svc-row",style:"cursor:default"});
         row.appendChild(el("div",{},el("div",{cls:"svc-n",txt:n(s)})));
