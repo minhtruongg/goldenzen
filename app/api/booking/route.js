@@ -1,7 +1,7 @@
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { service_category, service_name, client_name, client_phone, date, time, note, price_original, price_final, duration } = body;
+    const { service_category, service_name, client_name, client_phone, client_email, date, time, note, price_original, price_final, duration } = body;
 
     // 1. Generate Reference & Timestamps
     const bookingDate = new Date().toLocaleDateString('cs-CZ');
@@ -21,6 +21,7 @@ export async function POST(req) {
       `--------------------------`,
       `*Tên khách:* ${client_name}`,
       `*Số điện thoại:* ${client_phone}`,
+      client_email ? `*Email:* ${client_email}` : null,
       note ? `*Ghi chú:* ${note}` : null,
     ].filter(Boolean).join('\n');
 
@@ -48,6 +49,7 @@ export async function POST(req) {
         service_name,
         client_name,
         client_phone,
+        client_email: client_email || '',
         date,
         time,
         note: note || '',
