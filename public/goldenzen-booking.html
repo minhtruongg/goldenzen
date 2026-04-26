@@ -127,8 +127,8 @@ const T={
     steps:["Kategorie","Služba","Datum & čas","Kontakt"],
     back:"← Zpět",cont:"Pokračovat",submit:"Odeslat rezervaci",newBook:"Nová rezervace",
     selDate:"Vyberte datum",times:"Dostupné časy",
-    name:"Jméno a příjmení",phone:"Telefonní číslo",note:"Poznámka (volitelné)",
-    namePh:"Jana Novák",phonePh:"123 456 789",notePh:"Přijdu s kamarádkou, mám specifické přání...",
+    name:"Jméno a příjmení",phone:"Telefonní číslo",email:"E-mailová adresa",note:"Poznámka (volitelné)",
+    namePh:"Jana Novák",phonePh:"123 456 789",emailPh:"jana@priklad.cz",notePh:"Přijdu s kamarádkou, mám specifické přání...",
     contactTtl:"Vaše kontaktní údaje",dateTimeTtl:"Vyberte termín",summaryLbl:"Vaše rezervace",
     okTtl:"Rezervace odeslána",okRef:"Referenční číslo",
     okNote:"Brzy vás budeme kontaktovat pro potvrzení vašeho termínu.",
@@ -149,8 +149,8 @@ const T={
     steps:["Category","Service","Date & time","Contact"],
     back:"← Back",cont:"Continue",submit:"Send booking",newBook:"New booking",
     selDate:"Select date",times:"Available times",
-    name:"Full name",phone:"Phone number",note:"Note (optional)",
-    namePh:"Jane Smith",phonePh:"123 456 789",notePh:"Coming with a friend, any special requests...",
+    name:"Full name",phone:"Phone number",email:"Email address",note:"Note (optional)",
+    namePh:"Jane Smith",phonePh:"123 456 789",emailPh:"jane@example.com",notePh:"Coming with a friend, any special requests...",
     contactTtl:"Your contact details",dateTimeTtl:"Choose your slot",summaryLbl:"Your booking",
     okTtl:"Booking sent",okRef:"Reference number",
     okNote:"We'll contact you shortly to confirm your appointment.",
@@ -295,7 +295,7 @@ const SVCS={
 };
 
 // Prices in SVCS are already after 30% discount. Original = price / 0.7
-const S={step:1,lang:"cs",cat:null,svc:null,date:"",time:"",form:{name:"",phone:"",note:""},lastRef:""};
+const S={step:1,lang:"cs",cat:null,svc:null,date:"",time:"",form:{name:"",phone:"",email:"",note:""},lastRef:""};
 function tx(){return T[S.lang]}
 function pad(n){return String(n).padStart(2,"0")}
 function slots(ds){
@@ -509,7 +509,7 @@ function s4(){
   pr.appendChild(el("span",{cls:"summary-badge",txt:tx().sale}));
   sum.appendChild(pr);
   w.appendChild(sum);
-  [[tx().name,"text",tx().namePh,"name"],[tx().phone,"tel",tx().phonePh,"phone"]].forEach(([lbl,type,ph,key])=>{
+  [[tx().name,"text",tx().namePh,"name"],[tx().phone,"tel",tx().phonePh,"phone"],[tx().email,"email",tx().emailPh,"email"]].forEach(([lbl,type,ph,key])=>{
     const fg=el("div",{cls:"fg"});
     fg.appendChild(el("label",{cls:"fl",txt:lbl}));
     const inp=el("input",{cls:"fi",type,placeholder:ph});
@@ -541,6 +541,7 @@ function s4(){
   w.appendChild(el("div",{cls:"row-r"},el("button",{cls:"btn btn-gold",onclick:async()=>{
     if(!S.form.name.trim()){alert(S.lang==="cs"?"Prosím zadejte jméno":"Please enter your name");return;}
     if(!S.form.phone.trim()||S.form.phone.length!==9){alert(S.lang==="cs"?"Prosím zadejte přesně 9 číslic":"Please enter exactly 9 digits");return;}
+    if(!S.form.email.trim()||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(S.form.email)){alert(S.lang==="cs"?"Prosím zadejte platný e-mail":"Please enter a valid email address");return;}
     try{
       await fetch('/api/booking',{
         method:'POST',
@@ -550,6 +551,7 @@ function s4(){
           service_name:n(S.svc),
           client_name:S.form.name,
           client_phone:S.form.phone,
+          client_email:S.form.email,
           date:S.date,
           time:S.time,
           note:S.form.note,
@@ -571,7 +573,7 @@ function s5(){
   w.appendChild(el("div",{cls:"ok-ref",htm:tx().okRef+": <strong>"+S.lastRef+"</strong>"}));
   w.appendChild(el("div",{cls:"ok-note",txt:tx().okNote}));
   w.appendChild(el("button",{cls:"btn btn-gold",onclick:()=>{
-    S.step=1;S.cat=null;S.svc=null;S.date="";S.time="";S.form={name:"",phone:"",note:""};render();
+    S.step=1;S.cat=null;S.svc=null;S.date="";S.time="";S.form={name:"",phone:"",email:"",note:""};render();
   }},tx().newBook));
   return w;
 }
