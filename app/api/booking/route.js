@@ -4,8 +4,8 @@ export async function POST(req) {
     const { service_category, service_name, client_name, client_phone, client_email, date, time, note, price_original, price_final, duration } = body;
 
     // 1. Generate Reference & Timestamps
-    const bookingDate = new Date().toLocaleDateString('cs-CZ');
-    const bookingTime = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
+    const bookingDate = new Date().toLocaleDateString('cs-CZ', { timeZone: 'Europe/Prague' });
+    const bookingTime = new Date().toLocaleTimeString('cs-CZ', { timeZone: 'Europe/Prague', hour: '2-digit', minute: '2-digit' });
     const refNumber = `GZB${date.replace(/-/g, '').slice(2)}${Math.random().toString(36).slice(2,5).toUpperCase()}`;
 
     // 3. The New Message Format (Matching your image)
@@ -15,7 +15,7 @@ export async function POST(req) {
       `--------------------------`,
       `*Mã đặt lịch:* ${refNumber}`,
       `*Dịch vụ:* ${service_name}`,
-      `*Lịch hẹn:* ${time} - ${new Date(date).toLocaleDateString('cs-CZ')}`,
+      `*Lịch hẹn:* ${time} - ${new Date(date).toLocaleDateString('cs-CZ', { timeZone: 'Europe/Prague' })}`,
       duration ? `*Thời lượng:* ${duration} phút` : null,
       price_final ? `*Giá:* ${Number(price_final).toLocaleString('cs-CZ')} Kč` : null,
       `--------------------------`,
