@@ -69,6 +69,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);m
 .panel{background:rgba(0,0,0,0.02);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem}
 .panel+.panel{margin-top:10px}
 .panel-label{font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem}
+.notice{border:1px solid rgba(160,104,26,0.3);border-radius:var(--r);padding:.75rem 1rem;background:rgba(160,104,26,0.06);font-size:14px;color:var(--gold2);margin-bottom:1rem;line-height:1.5}
 .summary{border:1px solid rgba(160,104,26,0.22);border-radius:var(--r);padding:1rem 1.25rem;background:rgba(160,104,26,0.04);margin-bottom:1.5rem}
 .summary-svc{font-size:17px;color:var(--cream);margin-bottom:5px}
 .summary-meta{font-size:16px;color:var(--muted);line-height:1.8}
@@ -134,6 +135,7 @@ const T={
     okNote:"Brzy vás budeme kontaktovat pro potvrzení vašeho termínu.",
     footer:"Bělohorská 118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
     priceOnReq:"Cena na dotaz",min:"min",sale:"-30%",
+    bookingPaused:"Rezervace jsou dočasně pozastaveny do 10. 7. včetně. Nejbližší volný termín je 11. 7.",
     cats:[
       {id:"massage",icon:"♨",label:"Masáže",desc:"Thai, olejové, kamenné a další"},
       {id:"couple",icon:"◇",label:"Párová masáž",desc:"Relaxace pro dva"},
@@ -156,6 +158,7 @@ const T={
     okNote:"We'll contact you shortly to confirm your appointment.",
     footer:"Bělohorská 118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
     priceOnReq:"Price on request",min:"min",sale:"-30%",
+    bookingPaused:"Bookings are temporarily paused through 10 July. The earliest available date is 11 July.",
     cats:[
       {id:"massage",icon:"♨",label:"Massages",desc:"Thai, oil, hot stone & more"},
       {id:"couple",icon:"◇",label:"Couple massage",desc:"Relaxation for two"},
@@ -171,17 +174,20 @@ const T={
 const SVCS={
   massage:[
     {id:2,cs:"Masáž chodidel",en:"Foot massage",variants:[
-      {dur:30,price:490,orig:700}
+      {dur:30,price:450,orig:890},
+      {dur:45,price:550,orig:1100}
     ]},
     {id:3,cs:"Masáž zad a krku",en:"Back & neck massage",variants:[
-      {dur:30,price:490,orig:700}
+      {dur:30,price:450,orig:890},
+      {dur:45,price:550,orig:1100}
     ]},
     {id:4,cs:"Masáž hlavy a krku",en:"Head & neck massage",variants:[
-      {dur:30,price:490,orig:700}
+      {dur:30,price:450,orig:890},
+      {dur:45,price:550,orig:1100}
     ]},
     {id:5,cs:"Tradiční thajská masáž",en:"Traditional Thai massage",variants:[
-      {dur:60,price:790,orig:1190},
-      {dur:90,price:1190,orig:1790},
+      {dur:60,price:699,orig:1190},
+      {dur:90,price:990,orig:1790},
       {dur:120,price:1580,orig:2380}
     ]},
     {id:6,cs:"Masáž chodidel + koupel",en:"Foot bath + massage",variants:[
@@ -189,9 +195,9 @@ const SVCS={
       {dur:90,price:1290,orig:1890}
     ]},
     {id:7,cs:"Olejová masáž",en:"Oil massage",variants:[
-      {dur:60,price:890,orig:1290},
-      {dur:90,price:1290,orig:1890},
-      {dur:120,price:1780,orig:2580}
+      {dur:60,price:890,orig:1390},
+      {dur:90,price:1290,orig:1990},
+      {dur:120,price:1450,orig:2500}
     ]},
     {id:8,cs:"Sportovní masáž",en:"Sports massage",variants:[
       {dur:60,price:950,orig:1350},
@@ -223,7 +229,7 @@ const SVCS={
     {id:13,cs:"Thajská masáž (pár)",en:"Thai massage (couple)",variants:[{dur:60,price:1590,orig:2271},{dur:90,price:2690,orig:3843},{dur:120,price:3350,orig:4786}]},
     {id:14,cs:"Olejová masáž (pár)",en:"Oil massage (couple)",variants:[{dur:60,price:1790,orig:2557},{dur:90,price:2790,orig:3986}, {dur:120,price:3580,orig:5143}]},
     {id:15,cs:"BIO aromatická masáž (pár)",en:"BIO aromatic massage (couple)",variants:[{dur:60,price:1890,orig:2700}, {dur:90,price:2950,orig:4214}, {dur:120,price:3850,orig:5500}]},
-    {id:19,cs:"Masáž horkými kameny (pár)",en:"Hot stone massage (couple)",variants:[{dur:60,price:1990,orig:2843},{dur:90,price:2980,orig:4257},{dur:120,price:3950,orig:5643}]},
+    {id:16,cs:"Masáž horkými kameny (pár)",en:"Hot stone massage (couple)",variants:[{dur:60,price:1990,orig:2843},{dur:90,price:2980,orig:4257},{dur:120,price:3950,orig:5643}]},
   ],
   cosm:[
     {id:19,cs:"Základní líčení",en:"Basic makeup",price:650,dur:45},
@@ -277,8 +283,8 @@ const SVCS={
   ],
   nails:[
     {id:50,cs:"Manikúra klasik",en:"Classic manicure",price:299,dur:45},
-    {id:51,cs:"Manikúra s lakováním",en:"Manicure with polish",price:450,dur:60},
-    {id:52,cs:"Manikúra Shellac/Gellac",en:"Shellac/Gellac manicure",price:570,dur:60},
+    {id:51,cs:"Manikúra s lakováním",en:"Manicure with polish",price:490,dur:60},
+    {id:52,cs:"Manikúra Shellac/Gellac",en:"Shellac/Gellac manicure",price:590,dur:60},
     {id:53,cs:"Změna barvy bez manikúry",en:"Colour change (no manicure)",price:299,dur:20},
     {id:54,cs:"Pedikúra klasik",en:"Classic pedicure",price:499,dur:60},
     {id:55,cs:"Pedikúra s lakováním",en:"Pedicure with polish",price:549,dur:75},
@@ -296,8 +302,20 @@ const SVCS={
 
 // Prices in SVCS are already after 30% discount. Original = price / 0.7
 const S={step:1,lang:"cs",cat:null,svc:null,date:"",time:"",form:{name:"",phone:"",email:"",note:""},lastRef:""};
+
+// Bookings are paused up through and including this date (YYYY-MM-DD).
+// Earliest selectable date is the day after this.
+const BOOKING_BLOCKED_THROUGH="2026-07-10";
+
 function tx(){return T[S.lang]}
 function pad(n){return String(n).padStart(2,"0")}
+function earliestBookableDate(){
+  const d=new Date(BOOKING_BLOCKED_THROUGH+"T00:00:00");
+  d.setDate(d.getDate()+1);
+  const t=today();
+  const next=d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+  return next>t?next:t;
+}
 function slots(ds){
   if(!ds)return[];
   const wk=[0,6].includes(new Date(ds+"T00:00:00").getDay());
@@ -470,12 +488,14 @@ function s3(){
     el("button",{cls:"btn btn-sm",onclick:()=>{S.step=2;render()}},tx().back),
     el("h2",{cls:"ttl",style:"margin:0",txt:tx().dateTimeTtl})
   ));
+  w.appendChild(el("div",{cls:"notice",txt:tx().bookingPaused}));
+  const earliest=earliestBookableDate();
   const dp=el("div",{cls:"panel"});
   dp.appendChild(el("div",{cls:"panel-label",txt:tx().selDate}));
-  if(S.date&&S.date<today()){S.date="";S.time="";}
-  const di=el("input",{cls:"fi",type:"date",min:today()});
+  if(S.date&&S.date<earliest){S.date="";S.time="";}
+  const di=el("input",{cls:"fi",type:"date",min:earliest});
   di.value=S.date||"";
-  di.addEventListener("input",()=>{if(di.value&&di.value<today()){di.value=today();}S.date=di.value;S.time="";render()});
+  di.addEventListener("input",()=>{if(di.value&&di.value<earliest){di.value=earliest;}S.date=di.value;S.time="";render()});
   dp.appendChild(di);
   w.appendChild(dp);
   if(S.date){
