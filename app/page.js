@@ -1,4 +1,10 @@
-import { redirect } from 'next/navigation'
+import fs from 'fs'
+import path from 'path'
+
 export default function Home() {
-  redirect('/goldenzen.html')
+  const html = fs.readFileSync(
+    path.join(process.cwd(), 'public', 'goldenzen.html'),
+    'utf8'
+  )
+  return <div dangerouslySetInnerHTML={{ __html: html }} />
 }
