@@ -87,6 +87,8 @@ section{padding:5rem 1.5rem}
 .svc-price{font-size:16px;color:var(--gold);font-weight:500;letter-spacing:.04em}
 .svc-border{border:1px solid var(--border);background:var(--ink2)}
 .svc-border:hover{background:var(--ink3);border-color:var(--border2)}
+.svc-more{display:inline-block;font-size:15px;color:var(--gold);text-decoration:none;margin-bottom:1.25rem;font-weight:500}
+.svc-more:hover{color:var(--gold2);text-decoration:underline}
 
 /* ── SPA FEATURE IMAGE ── */
 .spa-feature{position:relative;height:480px;overflow:hidden;margin:0}
@@ -187,6 +189,13 @@ footer{background:var(--ink2);border-top:1px solid var(--border);padding:2rem 1.
   .photo-strip{grid-template-columns:1fr;height:220px}
   .photo-strip-item:not(:first-child){display:none}
 }
+
+.related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--border);margin-top:2rem}
+.related-card{display:block;background:var(--ink3);padding:1.75rem;text-decoration:none;color:inherit;transition:background .2s}
+.related-card:hover{background:var(--ink2)}
+.related-card .rc-name{font-family:'Playfair Display',serif;font-size:17px;color:var(--cream);margin-bottom:.4rem}
+.related-card .rc-desc{font-size:14px;color:var(--muted);line-height:1.6}
+
 </style>
 
 <script type="application/ld+json">
@@ -284,13 +293,13 @@ footer{background:var(--ink2);border-top:1px solid var(--border);padding:2rem 1.
     <h2 class="section-title reveal reveal-delay-1" id="svc-ttl">Péče, která <em>opravdu funguje</em></h2>
     <p class="section-sub reveal reveal-delay-2" id="svc-sub">Od relaxačních masáží po kosmetické zákroky — tým odborníků se postará o každý detail.</p>
     <div class="svc-grid svc-border">
-      <a href="goldenzen-booking.html?cat=massage" class="svc-card svc-border reveal"><div class="svc-icon">♨</div><div class="svc-name" id="sc1-n">Masáže</div><div class="svc-desc" id="sc1-d">Tradiční thajské masáže, olejové, horké kameny, bylinná a aromatická masáž. Uvolněte napětí a obnovte rovnováhu těla.</div><div class="svc-price" id="sc1-p">od 490 Kč</div><img class="svc-img" src="https://images.unsplash.com/photo-1741522509438-a120c0bb5e88?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Masáže" loading="lazy"></a>
+      <div class="svc-card svc-border reveal"><div class="svc-icon">♨</div><div class="svc-name" id="sc1-n">Masáže</div><div class="svc-desc" id="sc1-d">Tradiční thajské masáže, olejové, horké kameny, bylinná a aromatická masáž. Uvolněte napětí a obnovte rovnováhu těla.</div><div class="svc-price" id="sc1-p">od 490 Kč</div><a href="/masaze-praha-6/" class="svc-more" id="sc1-more">Zjistit více →</a><img class="svc-img" src="https://images.unsplash.com/photo-1741522509438-a120c0bb5e88?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Masáže" loading="lazy"></div>
       <a href="goldenzen-booking.html?cat=couple" class="svc-card svc-border reveal reveal-delay-1"><div class="svc-icon">◇</div><div class="svc-name" id="sc2-n">Párová masáž</div><div class="svc-desc" id="sc2-d">Relaxace pro dva — sdílený zážitek plný pohody a klidu. Ideální dárek pro páry i přátele.</div><div class="svc-price" id="sc2-p">od 1 490 Kč</div><img class="svc-img" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80" alt="Párová masáž" loading="lazy"></a>
       <a href="goldenzen-booking.html?cat=cosm" class="svc-card svc-border reveal reveal-delay-2"><div class="svc-icon">✦</div><div class="svc-name" id="sc3-n">Kosmetika</div><div class="svc-desc" id="sc3-d">Hloubkové ošetření pleti, léčba akné, anti-aging procedury, depilace a líčení pro každou příležitost.</div><div class="svc-price" id="sc3-p">od 180 Kč</div><img class="svc-img" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" alt="Kosmetika" loading="lazy"></a>
       <a href="goldenzen-booking.html?cat=pmu" class="svc-card svc-border reveal"><div class="svc-icon">◈</div><div class="svc-name" id="sc4-n">Permanentní makeup</div><div class="svc-desc" id="sc4-d">Mikroblading obočí, PMU rty a obočí. Přirozený výsledek, který vydrží.</div><div class="svc-price" id="sc4-p">od 3 500 Kč</div><img class="svc-img" src="/images/pmu.jpg" alt="Permanentní makeup" loading="lazy"></a>
       <a href="goldenzen-booking.html?cat=brows" class="svc-card svc-border reveal reveal-delay-1"><div class="svc-icon">◉</div><div class="svc-name" id="sc5-n">Obočí & řasy</div><div class="svc-desc" id="sc5-d">Laminace, prodlužování řas, lash lifting, barvení a úprava tvaru. Dokonalý pohled každý den.</div><div class="svc-price" id="sc5-p">od 150 Kč</div><img class="svc-img" src="https://images.unsplash.com/photo-1589710751893-f9a6770ad71b?auto=format&fit=crop&w=600&q=80" alt="Obočí a řasy" loading="lazy"></a>
       <a href="goldenzen-booking.html?cat=nails" class="svc-card svc-border reveal reveal-delay-2"><div class="svc-icon">◆</div><div class="svc-name" id="sc6-n">Nehty</div><div class="svc-desc" id="sc6-d">Manikúra, pedikúra, Shellac/Gellac, Footlogix a gelové nehty. Péče o vaše ruce a nohy od špiček.</div><div class="svc-price" id="sc6-p">od 250 Kč</div><img class="svc-img" src="/images/nails.jpg" alt="Nehty" loading="lazy"></a>
-      <a href="goldenzen-booking.html?cat=hair" class="svc-card svc-border reveal"><div class="svc-icon">✂</div><div class="svc-name" id="sc7-n">Kadeřnictví</div><div class="svc-desc" id="sc7-d">Střihy, barvení, baleáž a vlasové kúry pro muže, ženy i děti. Profesionální péče o vaše vlasy.</div><div class="svc-price" id="sc7-p">od 100 Kč</div><img class="svc-img" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Kadeřnictví" loading="lazy"></a>
+      <div class="svc-card svc-border reveal"><div class="svc-icon">✂</div><div class="svc-name" id="sc7-n">Kadeřnictví</div><div class="svc-desc" id="sc7-d">Střihy, barvení, baleáž a vlasové kúry pro muže, ženy i děti. Profesionální péče o vaše vlasy.</div><div class="svc-price" id="sc7-p">od 100 Kč</div><a href="/kadernictvi-praha-6/" class="svc-more" id="sc7-more">Zjistit více →</a><img class="svc-img" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Kadeřnictví" loading="lazy"></div>
     </div>
     <div style="text-align:center;margin-top:2.5rem" class="reveal"><a href="goldenzen-booking.html" class="btn-prim" id="svc-book">Rezervovat službu</a></div>
   </div>
@@ -395,6 +404,7 @@ window.addEventListener('scroll', () => {
 // ── Language ──
 const LANG={
   cs:{
+    "sc1-more":"Zjistit více →","sc7-more":"Zjistit více →",
     "nl-svc":"Služby","nl-promo":"Akce","nl-vouch":"Dárkové poukazy","nl-contact":"Kontakt","nav-book":"Rezervace",
     "h-eyebrow":"Wellness centrum · Praha 6 – Břevnov","h-title":"Místo, kde <em>tělo<br>& mysl</em> odpočinou",
     "h-sub":"Thajské masáže, kosmetika, permanentní makeup a péče o nehty — vše pod jednou střechou s 17 lety zkušeností.",
@@ -429,6 +439,7 @@ const LANG={
     "bk-cta":"Přejít na rezervaci","ft-copy":"© 2025 GoldenZen · Bělohorská 118, Praha 6"
   },
   en:{
+    "sc1-more":"Learn more →","sc7-more":"Learn more →",
     "nl-svc":"Services","nl-promo":"Offers","nl-vouch":"Gift vouchers","nl-contact":"Contact","nav-book":"Book now",
     "h-eyebrow":"Wellness centre · Prague 6 – Břevnov","h-title":"A place where <em>body<br>& mind</em> can rest",
     "h-sub":"Thai massages, cosmetics, permanent makeup and nail care — all under one roof with 17 years of expertise.",
