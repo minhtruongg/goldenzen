@@ -171,134 +171,46 @@ const T={
   }
 };
 
-const SVCS={
-  massage:[
-    {id:2,cs:"Masáž chodidel",en:"Foot massage",variants:[
-      {dur:30,price:450,orig:890},
-      {dur:45,price:550,orig:1100}
-    ]},
-    {id:3,cs:"Masáž zad a krku",en:"Back & neck massage",variants:[
-      {dur:30,price:450,orig:890},
-      {dur:45,price:550,orig:1100}
-    ]},
-    {id:4,cs:"Masáž hlavy a krku",en:"Head & neck massage",variants:[
-      {dur:30,price:450,orig:890},
-      {dur:45,price:550,orig:1100}
-    ]},
-    {id:5,cs:"Tradiční thajská masáž",en:"Traditional Thai massage",variants:[
-      {dur:60,price:699,orig:1190},
-      {dur:90,price:990,orig:1790},
-      {dur:120,price:1580,orig:2380}
-    ]},
-    {id:6,cs:"Masáž chodidel + koupel",en:"Foot bath + massage",variants:[
-      {dur:60,price:890,orig:1290},
-      {dur:90,price:1290,orig:1890}
-    ]},
-    {id:7,cs:"Olejová masáž",en:"Oil massage",variants:[
-      {dur:60,price:790,orig:1390},
-      {dur:90,price:1090,orig:1990},
-      {dur:120,price:1450,orig:2500}
-    ]},
-    {id:8,cs:"Sportovní masáž",en:"Sports massage",variants:[
-      {dur:60,price:950,orig:1350},
-      {dur:90,price:1390,orig:1990},
-      {dur:120,price:1900,orig:2700}
-    ]},
-    {id:9,cs:"Aromatická olejová masáž",en:"Aromatic oil massage",variants:[
-      {dur:60,price:990,orig:1390},
-      {dur:90,price:1490,orig:2130},
-      {dur:120,price:1950,orig:2790}
-    ]},
-    {id:10,cs:"Terapeutická masáž",en:"Therapeutic massage",variants:[
-      {dur:60,price:1090,orig:1490},
-      {dur:90,price:1550,orig:2250},
-      {dur:120,price:2180,orig:2980}
-    ]},
-    {id:11,cs:"Masáž horkými kameny",en:"Hot stone massage",variants:[
-      {dur:60,price:1450,orig:1890},
-      {dur:90,price:1590,orig:2790},
-      {dur:120,price:1990,orig:3780}
-    ]},
-    {id:12,cs:"Bylinná masáž Herbal King",en:"Herbal King massage",variants:[
-      {dur:60,price:1450,orig:1890},
-      {dur:90,price:2050,orig:2990},
-      {dur:120,price:2900,orig:3780}
-    ]},
-  ],
-  couple:[
-    {id:13,cs:"Thajská masáž (pár)",en:"Thai massage (couple)",variants:[{dur:60,price:1590,orig:2271},{dur:90,price:2690,orig:3843},{dur:120,price:3350,orig:4786}]},
-    {id:14,cs:"Olejová masáž (pár)",en:"Oil massage (couple)",variants:[{dur:60,price:1790,orig:2557},{dur:90,price:2790,orig:3986}, {dur:120,price:3580,orig:5143}]},
-    {id:15,cs:"BIO aromatická masáž (pár)",en:"BIO aromatic massage (couple)",variants:[{dur:60,price:1890,orig:2700}, {dur:90,price:2950,orig:4214}, {dur:120,price:3850,orig:5500}]},
-    {id:16,cs:"Masáž horkými kameny (pár)",en:"Hot stone massage (couple)",variants:[{dur:60,price:1990,orig:2843},{dur:90,price:2980,orig:4257},{dur:120,price:3950,orig:5643}]},
-  ],
-  cosm:[
-    {id:19,cs:"Základní líčení",en:"Basic makeup",price:650,dur:45},
-    {id:20,cs:"Večerní líčení",en:"Evening makeup",price:850,dur:60},
-    {id:21,cs:"Hluboká masáž obličeje (7 kroků)",en:"Deep facial massage (7 steps)",price:950,dur:60},
-    {id:22,cs:"Depilace (malá)",en:"Waxing (small area)",price:690,dur:30},
-    {id:23,cs:"Depilace (větší)",en:"Waxing (larger area)",price:1350,dur:60},
-    {id:24,cs:"Léčba akné",en:"Acne treatment",price:2450,dur:90},
-    {id:25,cs:"Anti-aging Lipo 4.0",en:"Anti-aging Lipo 4.0",price:3500,dur:90},
-    {id:26,cs:"Léčba pigmentace",en:"Pigmentation treatment",price:5600,dur:120},
-  ],
-  pmu:[
-    {id:27,cs:"Mikroblading obočí",en:"Eyebrow microblading",price:3500,dur:120},
-    {id:28,cs:"PMU rty",en:"PMU lips",price:4000,dur:120},
-    {id:29,cs:"PMU obočí",en:"PMU eyebrows",price:4000,dur:120},
-  ],
-  brows:[
-    {id:30,cs:"Úprava obočí",en:"Eyebrow shaping",price:180,dur:15},
-    {id:31,cs:"Barvení obočí",en:"Eyebrow tinting",price:180,dur:15},
-    {id:32,cs:"Henna obočí",en:"Henna brow tint",price:180,dur:15},
-    {id:33,cs:"Barvení řas",en:"Eyelash tinting",price:150,dur:15},
-    {id:34,cs:"Úprava a barvení obočí",en:"Brow shaping + tinting",price:200,dur:20},
-    {id:35,cs:"Laminace obočí",en:"Brow lamination",price:480,dur:45},
-    {id:36,cs:"Laminace + úprava",en:"Lamination + shaping",price:550,dur:60},
-    {id:37,cs:"Prodlužování řas — řasa na řasu",en:"Lash extensions — classic 1:1",price:850,dur:90},
-    {id:38,cs:"Prodlužování řas — klasik 2 řasy",en:"Lash extensions — 2D classic",price:920,dur:100},
-    {id:39,cs:"Volume řasy 3D",en:"Volume lashes 3D",price:920,dur:110},
-    {id:40,cs:"Volume řasy 5D",en:"Volume lashes 5D",price:950,dur:120},
-    {id:41,cs:"Volume řasy 8D",en:"Volume lashes 8D",price:1050,dur:120},
-    {id:42,cs:"Volume řasy 10D",en:"Volume lashes 10D",price:1150,dur:130},
-    {id:43,cs:"Řasy Katun",en:"Katun lashes",price:1150,dur:130},
-    {id:44,cs:"Lash lifting s barvením",en:"Lash lifting with tinting",price:600,dur:60},
-    {id:45,cs:"Lash lifting + výživa na řasy",en:"Lash lifting + nourishing",price:700,dur:75},
-  ],
-  hair:[
-    {id:70,grp:{cs:"Pánské",en:"Men's"},cs:"Střih klasický (senioři 60+)",en:"Classic cut (seniors 60+)",price:290,orig:450,dur:30},
-    {id:71,cs:"Střih styling",en:"Styling cut",price:350,orig:500,dur:45},
-    {id:72,cs:"Střih vousů",en:"Beard trim",price:150,orig:250,dur:20},
-    {id:77,cs:"Barvení vlasů",en:"Hair colouring",price:850,orig:1190,dur:60},
-    {id:73,grp:{cs:"Dámské",en:"Women's"},cs:"Střih krátké vlasy",en:"Short hair cut",price:490,orig:690,dur:45},
-    {id:74,cs:"Střih dlouhé vlasy",en:"Long hair cut",price:690,orig:990,dur:60},
-    {id:78,cs:"Barvení krátkých vlasů",en:"Short hair colouring",price:850,orig:1190,dur:60},
-    {id:79,cs:"Barvení dlouhých vlasů",en:"Long hair colouring",price:1290,orig:1890,dur:90},
-    {id:80,cs:"Baleáž krátké vlasy",en:"Short balayage",price:2000,orig:2850,dur:120},
-    {id:81,cs:"Baleáž dlouhé vlasy",en:"Long balayage",price:3000,orig:4290,dur:150},
-    {id:75,grp:{cs:"Dětské",en:"Children's"},cs:"Střih klučičí",en:"Boy's haircut",price:250,orig:350,dur:20},
-    {id:76,cs:"Střih holčičí",en:"Girl's haircut",price:490,orig:700,dur:30},
-    {id:82,grp:{cs:"Ošetření & péče",en:"Treatments & care"},cs:"Mytí + foukaná",en:"Wash & blow-dry",price:590,orig:890,dur:30},
-    {id:83,cs:"Regenerační mytí vlasů a masáž",en:"Regenerating wash & scalp massage",price:1750,orig:2500,dur:60},
-    {id:84,cs:"Keratinová vlasová kúra + mytí + foukaná",en:"Keratin treatment + wash + blow-dry",price:690,orig:990,dur:60},
-  ],
-  nails:[
-    {id:50,cs:"Manikúra klasik",en:"Classic manicure",price:299,dur:45},
-    {id:51,cs:"Manikúra s lakováním",en:"Manicure with polish",price:490,dur:60},
-    {id:52,cs:"Manikúra Shellac/Gellac",en:"Shellac/Gellac manicure",price:590,dur:60},
-    {id:53,cs:"Změna barvy bez manikúry",en:"Colour change (no manicure)",price:299,dur:20},
-    {id:54,cs:"Pedikúra klasik",en:"Classic pedicure",price:499,dur:60},
-    {id:55,cs:"Pedikúra s lakováním",en:"Pedicure with polish",price:549,dur:75},
-    {id:56,cs:"Pedikúra Shellac/Gellac",en:"Shellac/Gellac pedicure",price:640,dur:75},
-    {id:57,cs:"Změna barvy bez pedikúry",en:"Colour change (no pedicure)",price:440,dur:20},
-    {id:58,cs:"Footlogix klasik",en:"Footlogix classic",price:650,dur:60},
-    {id:59,cs:"Footlogix s lakováním",en:"Footlogix with polish",price:739,dur:75},
-    {id:60,cs:"Footlogix Shellac/Gellac",en:"Footlogix Shellac/Gellac",price:799,dur:75},
-    {id:61,cs:"Gelové/Akrylové nehty klasik bez barvy",en:"Gel/Acrylic nails — no colour",price:499,dur:90},
-    {id:62,cs:"Gelové/Akrylové nehty s lakováním",en:"Gel/Acrylic nails with polish",price:599,dur:90},
-    {id:63,cs:"Gelové nehty Francie/Ombre/Třpytky (bez podkladu)",en:"French/Ombre/Glitter nails (no base)",price:599,dur:110},
-    {id:64,cs:"Gelové nehty Francie/Ombre/Třpytky (s podkladem)",en:"French/Ombre/Glitter nails (with base)",price:649,dur:120},
-  ]
-};
+let SVCS={};
+let svcsLoaded=false;
+
+function buildSvcsFromRows(rows){
+  const byCategory={};
+  for(const r of rows){
+    const cat=r.category;
+    if(!byCategory[cat])byCategory[cat]=[];
+    const subKey=r.subgroup||"";
+    const orig=(r.orig_price!=null)?r.orig_price:Math.round(r.price/0.7);
+    let group=byCategory[cat].find(g=>g.name===r.name&&g.subKey===subKey);
+    if(!group){
+      group={name:r.name,cs:r.name,en:r.name_en||r.name,subKey:subKey,variants:[]};
+      if(r.subgroup)group.grp={cs:r.subgroup,en:r.subgroup_en||r.subgroup};
+      byCategory[cat].push(group);
+    }
+    group.variants.push({price:r.price,dur:r.duration,orig:orig});
+  }
+  const result={};
+  for(const[cat,groups]of Object.entries(byCategory)){
+    result[cat]=groups.map(g=>{
+      const base={cs:g.cs,en:g.en};
+      if(g.grp)base.grp=g.grp;
+      if(g.variants.length>1)base.variants=g.variants;
+      else{base.price=g.variants[0].price;base.dur=g.variants[0].dur;base.orig=g.variants[0].orig;}
+      return base;
+    });
+  }
+  return result;
+}
+
+async function loadServices(){
+  try{
+    const res=await fetch("/api/services");
+    const json=await res.json();
+    if(json.ok)SVCS=buildSvcsFromRows(json.services);
+  }catch(e){console.error("Failed to load services",e);}
+  svcsLoaded=true;
+  render();
+}
 
 // Prices in SVCS are already after 30% discount. Original = price / 0.7
 const S={step:1,lang:"cs",cat:null,svc:null,date:"",time:"",form:{name:"",phone:"",email:"",note:""},lastRef:""};
@@ -429,6 +341,11 @@ function s2(){
     el("h2",{cls:"ttl",style:"margin:0",txt:S.cat.label})
   ));
   const svcs=SVCS[S.cat.id]||[];
+  if(!svcsLoaded){
+    w.appendChild(el("div",{style:"text-align:center;padding:3rem 1rem;color:var(--muted)",
+      txt:S.lang==="cs"?"Načítání služeb...":"Loading services..."}));
+    return w;
+  }
   if(S.cat.id==="massage" || S.cat.id==="couple"){
     // Card grid layout: easier to scan massages at a glance
     const g=el("div",{cls:"msvc-grid"});
@@ -603,6 +520,7 @@ const _urlCat=new URLSearchParams(location.search).get('cat');
 if(_urlCat){const _c=T[S.lang].cats.find(c=>c.id===_urlCat);if(_c){S.cat=_c;S.step=2;}}
 
 render();
+loadServices();
 </script>
 </body>
 </html>

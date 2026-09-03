@@ -1,14 +1,16 @@
+import { dbInsert } from '@/lib/db';
+import { upsertCustomerByPhone } from '@/lib/customers';
+
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { service_category, service_name, client_name, client_phone, client_email, date, time, note, price_original, price_final, duration } = body;
+    const { service_category, service_name, client_name, client_phone, client_email, date, time, note, price_final, duration } = body;
 
     // 1. Generate Reference & Timestamps
     const bookingDate = new Date().toLocaleDateString('cs-CZ', { timeZone: 'Europe/Prague' });
     const bookingTime = new Date().toLocaleTimeString('cs-CZ', { timeZone: 'Europe/Prague', hour: '2-digit', minute: '2-digit' });
     const refNumber = `GZB${date.replace(/-/g, '').slice(2)}${Math.random().toString(36).slice(2,5).toUpperCase()}`;
 
-    // 3. The New Message Format (Matching your image)
     const msg = [
       `📅 *GoldenZen — Đặt lịch mới*`,
       `Thời gian đặt: ${bookingTime} - ${bookingDate}`,
@@ -25,7 +27,8 @@ export async function POST(req) {
       note ? `*Ghi chú:* ${note}` : null,
     ].filter(Boolean).join('\n');
 
-    // 2. Send Telegram first — always, to all recipients
+    // 2. Send Telegram — always, to all recipients. Kept as a safety net:
+    // if the database write below fails, this message is still the record.
     const chatIds = [process.env.TELEGRAM_CHAT_ID, process.env.TELEGRAM_CHAT_ID_2].filter(Boolean);
     await Promise.all(chatIds.map(chat_id =>
       fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`, {
@@ -35,27 +38,32 @@ export async function POST(req) {
       }).then(r => { if (!r.ok) r.text().then(e => console.error('Telegram error:', e)); })
     ));
 
-    // 3. Save to Supabase (best effort)
-    fetch(`${process.env.SUPABASE_URL}/rest/v1/bookings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': process.env.SUPABASE_KEY,
-        'Authorization': `Bearer ${process.env.SUPABASE_KEY}`,
-        'Prefer': 'return=minimal',
-      },
-      body: JSON.stringify({
-        service_category,
-        service_name,
-        client_name,
-        client_phone,
-        client_email: client_email || '',
-        date,
-        time,
-        note: note || '',
-        status: 'pending',
-      }),
-    }).catch(err => console.error('Supabase error:', err));
+    // 3. Save to the database — awaited, so a failure is caught instead of silent.
+    // Link (or create) the customer record by phone number.
+    const customer_id = await upsertCustomerByPhone({
+      name: client_name,
+      phone: client_phone,
+      email: client_email,
+    });
+
+    const { error: bookingErr } = await dbInsert('bookings', {
+      service_category,
+      service_name,
+      client_name,
+      client_phone,
+      client_email: client_email || '',
+      date,
+      time,
+      note: note || '',
+      status: 'pending',
+      customer_id,
+      price: price_final ?? null,
+      duration: duration ?? null,
+    });
+
+    if (bookingErr) {
+      return Response.json({ ok: false, error: 'Không lưu được vào cơ sở dữ liệu' }, { status: 500 });
+    }
 
     return Response.json({ ok: true });
 
