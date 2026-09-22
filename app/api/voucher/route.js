@@ -1,3 +1,5 @@
+import { dbInsert } from '@/lib/db';
+
 export async function POST(req) {
   try {
     const body = await req.json();
@@ -36,24 +38,19 @@ export async function POST(req) {
       }).then(r => { if (!r.ok) r.text().then(e => console.error('Telegram error:', e)); })
     ));
 
-    // 3. Save to Supabase (best effort)
-    fetch(`${process.env.SUPABASE_URL}/rest/v1/voucher_orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': process.env.SUPABASE_KEY,
-        'Authorization': `Bearer ${process.env.SUPABASE_KEY}`,
-        'Prefer': 'return=minimal',
-      },
-      body: JSON.stringify({
-        amount,
-        effective_value,
-        buyer_name,
-        buyer_phone,
-        buyer_email,
-        status: 'pending_payment',
-      }),
-    }).catch(err => console.error('Supabase error:', err));
+    // 3. Save to the database — awaited, so a failure is caught instead of silent.
+    const { error: voucherErr } = await dbInsert('voucher_orders', {
+      amount,
+      effective_value,
+      buyer_name,
+      buyer_phone,
+      buyer_email,
+      status: 'pending_payment',
+    });
+
+    if (voucherErr) {
+      return Response.json({ ok: false, error: 'Không lưu được vào cơ sở dữ liệu' }, { status: 500 });
+    }
 
     return Response.json({ ok: true });
 
