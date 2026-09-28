@@ -25,8 +25,8 @@ const T = {
     ],
     relEy: 'Vyberte si přesněji', relPre: 'Naše ', relEm: 'masáže', relSuf: '',
     related: [
-      ['/thajske-masaze-praha-6/', 'Thajské masáže', 'Tradiční thajská masáž v centru Břevnova.'],
-      ['/kadernictvi-praha-6/', 'Kadeřnictví Praha 6', 'Střihy, barvení a vlasová péče.'],
+      ['/thajske-masaze-praha-6', 'Thajské masáže', 'Tradiční thajská masáž v centru Břevnova.'],
+      ['/kadernictvi-praha-6', 'Kadeřnictví Praha 6', 'Střihy, barvení a vlasová péče.'],
     ],
     bookEy: 'Online rezervace', bookPre: 'Rezervujte si ', bookEm: 'svůj čas', bookSuf: '',
     bookSub: 'Vyberte masáž, zvolte termín, my se postaráme o zbytek.', bookCta: 'Rezervovat masáž',
@@ -50,8 +50,8 @@ const T = {
     ],
     relEy: 'Choose more precisely', relPre: 'Our ', relEm: 'massages', relSuf: '',
     related: [
-      ['/thajske-masaze-praha-6/', 'Thai massages', 'Traditional Thai massage in central Břevnov.'],
-      ['/kadernictvi-praha-6/', 'Hairdressing Prague 6', 'Cuts, colouring and hair care.'],
+      ['/thajske-masaze-praha-6', 'Thai massages', 'Traditional Thai massage in central Břevnov.'],
+      ['/kadernictvi-praha-6', 'Hairdressing Prague 6', 'Cuts, colouring and hair care.'],
     ],
     bookEy: 'Online booking', bookPre: 'Book your ', bookEm: 'time', bookSuf: '',
     bookSub: "Choose a massage, pick a slot, and we'll take care of the rest.", bookCta: 'Book a massage',
@@ -101,7 +101,7 @@ function Inner() {
           <h2 className="section-title">{t.introPre}<em>{t.introEm}</em>{t.introSuf}</h2>
           <p>{t.p1}</p>
           <p>{t.p2}</p>
-          <p>{t.p3pre}<a href="/thajske-masaze-praha-6/">{t.p3link1}</a>{t.p3dot}</p>
+          <p>{t.p3pre}<a href="/thajske-masaze-praha-6">{t.p3link1}</a>{t.p3dot}</p>
         </div>
       </section>
 

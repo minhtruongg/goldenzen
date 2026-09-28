@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
 <title>GoldenZen — Dárkové poukazy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -108,7 +109,7 @@ const T={
     okScan:"Naskenujte QR kód nebo převeďte na účet:",
     okAccount:"1235654003/5500",
     okNote:"Po přijetí platby vám zašleme poukaz e-mailem.",
-    footer:"Bělohorská 118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
+    footer:"Bělohorská 1686/118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
   },
   en:{
     sub:"Wellness centre · Prague 6",tagline:"Give an experience, not a thing",
@@ -124,7 +125,7 @@ const T={
     okScan:"Scan the QR code or transfer to account:",
     okAccount:"1235654003/5500",
     okNote:"Once payment is received we'll send the voucher to your email.",
-    footer:"Bělohorská 118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
+    footer:"Bělohorská 1686/118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
   }
 };
 
@@ -159,7 +160,7 @@ function hdr(){
   const t=tx();
   return el("div",{cls:"hdr"},
     el("div",{cls:"hdr-top"},
-      el("a",{href:"goldenzen.html",style:"font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.05em"},
+      el("a",{href:"/",style:"font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.05em"},
         "← "+(S.lang==="cs"?"Zpět na web":"Back to website")
       ),
       el("div",{cls:"lang-btn"},

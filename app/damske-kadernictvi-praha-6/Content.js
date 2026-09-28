@@ -24,9 +24,9 @@ const T = {
     ],
     relEy: 'Podívejte se i na', relPre: 'Další ', relEm: 'služby', relSuf: '',
     related: [
-      ['/barveni-vlasu-praha-6/', 'Barvení vlasů', 'Baleáž, melír a celková barva na míru.'],
-      ['/panske-kadernictvi-praha-6/', 'Pánské kadeřnictví', 'Střihy a úprava vousů pro muže.'],
-      ['/masaze-praha-6/', 'Masáže Praha 6', 'Relaxační a regenerační masáže v salonu.'],
+      ['/barveni-vlasu-praha-6', 'Barvení vlasů', 'Baleáž, melír a celková barva na míru.'],
+      ['/panske-kadernictvi-praha-6', 'Pánské kadeřnictví', 'Střihy a úprava vousů pro muže.'],
+      ['/masaze-praha-6', 'Masáže Praha 6', 'Relaxační a regenerační masáže v salonu.'],
     ],
     bookEy: 'Online rezervace', bookPre: 'Objednejte se ', bookEm: 'k nám', bookSuf: '',
     bookSub: 'Vyberte termín, který vám vyhovuje, a nechte zbytek na nás.', bookCta: 'Rezervovat dámský střih',
@@ -49,9 +49,9 @@ const T = {
     ],
     relEy: 'Also see', relPre: 'Other ', relEm: 'services', relSuf: '',
     related: [
-      ['/barveni-vlasu-praha-6/', 'Hair colouring', 'Balayage, highlights and full colour, tailored to you.'],
-      ['/panske-kadernictvi-praha-6/', "Men's hairdressing", 'Cuts and beard grooming for men.'],
-      ['/masaze-praha-6/', 'Massages Prague 6', 'Relaxing and restorative massages at the salon.'],
+      ['/barveni-vlasu-praha-6', 'Hair colouring', 'Balayage, highlights and full colour, tailored to you.'],
+      ['/panske-kadernictvi-praha-6', "Men's hairdressing", 'Cuts and beard grooming for men.'],
+      ['/masaze-praha-6', 'Massages Prague 6', 'Relaxing and restorative massages at the salon.'],
     ],
     bookEy: 'Online booking', bookPre: 'Book your ', bookEm: 'visit', bookSuf: '',
     bookSub: "Pick a time that works for you, and we'll take care of the rest.", bookCta: "Book a women's cut",
@@ -100,7 +100,7 @@ function Inner() {
           <h2 className="section-title">{t.introPre}<em>{t.introEm}</em>{t.introSuf}</h2>
           <p>{t.p1}</p>
           <p>{t.p2}</p>
-          <p>{t.p3pre}<a href="/barveni-vlasu-praha-6/">{t.p3link1}</a>{t.p3mid}<a href="/kadernictvi-praha-6/">{t.p3link2}</a>{t.p3dot}</p>
+          <p>{t.p3pre}<a href="/barveni-vlasu-praha-6">{t.p3link1}</a>{t.p3mid}<a href="/kadernictvi-praha-6">{t.p3link2}</a>{t.p3dot}</p>
         </div>
       </section>
 

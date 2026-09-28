@@ -15,8 +15,8 @@ export default function SiteNav() {
     <nav>
       <a href="/" className="nav-logo">Golden<em>Zen</em></a>
       <div className={`nav-links${open ? ' open' : ''}`}>
-        <a href="/kadernictvi-praha-6/">{t.hair}</a>
-        <a href="/masaze-praha-6/">{t.massage}</a>
+        <a href="/kadernictvi-praha-6">{t.hair}</a>
+        <a href="/masaze-praha-6">{t.massage}</a>
         <a href="/#vouchers">{t.vouchers}</a>
         <a href="/#contact">{t.contact}</a>
       </div>

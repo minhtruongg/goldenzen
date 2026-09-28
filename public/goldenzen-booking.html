@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, follow">
 <title>GoldenZen — Rezervace</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -133,7 +134,7 @@ const T={
     contactTtl:"Vaše kontaktní údaje",dateTimeTtl:"Vyberte termín",summaryLbl:"Vaše rezervace",
     okTtl:"Rezervace odeslána",okRef:"Referenční číslo",
     okNote:"Brzy vás budeme kontaktovat pro potvrzení vašeho termínu.",
-    footer:"Bělohorská 118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
+    footer:"Bělohorská 1686/118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
     priceOnReq:"Cena na dotaz",min:"min",sale:"-30%",
     bookingPaused:"Rezervace jsou dočasně pozastaveny do 10. 7. včetně. Nejbližší volný termín je 11. 7.",
     cats:[
@@ -156,7 +157,7 @@ const T={
     contactTtl:"Your contact details",dateTimeTtl:"Choose your slot",summaryLbl:"Your booking",
     okTtl:"Booking sent",okRef:"Reference number",
     okNote:"We'll contact you shortly to confirm your appointment.",
-    footer:"Bělohorská 118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
+    footer:"Bělohorská 1686/118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
     priceOnReq:"Price on request",min:"min",sale:"-30%",
     bookingPaused:"Bookings are temporarily paused through 10 July. The earliest available date is 11 July.",
     cats:[
@@ -280,7 +281,7 @@ function hdr(){
   const t=tx();
   return el("div",{cls:"hdr"},
     el("div",{cls:"hdr-top"},
-      el("a",{href:"goldenzen.html",style:"font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.05em"},
+      el("a",{href:"/",style:"font-size:14px;color:var(--muted);text-decoration:none;letter-spacing:.05em"},
         "← "+(S.lang==="cs"?"Zpět na web":"Back to website")
       ),
       el("div",{cls:"lang-btn"},

@@ -42,9 +42,8 @@ Add the same env variables in Vercel dashboard → Settings → Environment Vari
 ```
 app/
   api/booking/route.js   ← API: saves to Supabase + sends Telegram
-  page.js                ← serves landing page
+  page.js                ← homepage (/)
 public/
-  goldenzen.html         ← landing page
   goldenzen-booking.html ← booking form
 .env.local               ← your secrets (never commit this)
 supabase-setup.sql       ← run once in Supabase SQL editor
