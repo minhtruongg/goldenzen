@@ -137,7 +137,6 @@ const T={
     footer:"Bělohorská 1686/118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
     priceOnReq:"Cena na dotaz",min:"min",sale:"-30%",
     privacyPre:"Odesláním rezervace potvrzujete, že jste si přečetli ",privacyLink:"Zásady ochrany osobních údajů",privacySuf:".",  
-    bookingPaused:"Rezervace jsou dočasně pozastaveny do 10. 7. včetně. Nejbližší volný termín je 11. 7.",
     cats:[
       {id:"massage",icon:"♨",label:"Masáže",desc:"Thai, olejové, kamenné a další"},
       {id:"couple",icon:"◇",label:"Párová masáž",desc:"Relaxace pro dva"},
@@ -161,7 +160,6 @@ const T={
     footer:"Bělohorská 1686/118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
     priceOnReq:"Price on request",min:"min",sale:"-30%",
     privacyPre:"By sending the booking, you confirm that you have read our ",privacyLink:"Privacy Policy",privacySuf:".",
-    bookingPaused:"Bookings are temporarily paused through 10 July. The earliest available date is 11 July.",
     cats:[
       {id:"massage",icon:"♨",label:"Massages",desc:"Thai, oil, hot stone & more"},
       {id:"couple",icon:"◇",label:"Couple massage",desc:"Relaxation for two"},
@@ -218,19 +216,12 @@ async function loadServices(){
 // Prices in SVCS are already after 30% discount. Original = price / 0.7
 const S={step:1,lang:"cs",cat:null,svc:null,date:"",time:"",form:{name:"",phone:"",email:"",note:""},lastRef:""};
 
-// Bookings are paused up through and including this date (YYYY-MM-DD).
-// Earliest selectable date is the day after this.
-const BOOKING_BLOCKED_THROUGH="2026-07-10";
-
 function tx(){return T[S.lang]}
 function pad(n){return String(n).padStart(2,"0")}
 function earliestBookableDate(){
-  const d=new Date(BOOKING_BLOCKED_THROUGH+"T00:00:00");
-  d.setDate(d.getDate()+1);
-  const t=today();
-  const next=d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
-  return next>t?next:t;
+  return today();
 }
+
 function slots(ds){
   if(!ds)return[];
   const wk=[0,6].includes(new Date(ds+"T00:00:00").getDay());
@@ -408,7 +399,6 @@ function s3(){
     el("button",{cls:"btn btn-sm",onclick:()=>{S.step=2;render()}},tx().back),
     el("h2",{cls:"ttl",style:"margin:0",txt:tx().dateTimeTtl})
   ));
-  w.appendChild(el("div",{cls:"notice",txt:tx().bookingPaused}));
   const earliest=earliestBookableDate();
   const dp=el("div",{cls:"panel"});
   dp.appendChild(el("div",{cls:"panel-label",txt:tx().selDate}));
