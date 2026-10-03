@@ -136,6 +136,7 @@ const T={
     okNote:"Brzy vás budeme kontaktovat pro potvrzení vašeho termínu.",
     footer:"Bělohorská 1686/118, Praha 6 – Břevnov\n+420 778 085 666\nPo–Pá 9:00–21:00 · So–Ne 10:00–21:00",
     priceOnReq:"Cena na dotaz",min:"min",sale:"-30%",
+    privacyPre:"Odesláním rezervace potvrzujete, že jste si přečetli ",privacyLink:"Zásady ochrany osobních údajů",privacySuf:".",  
     bookingPaused:"Rezervace jsou dočasně pozastaveny do 10. 7. včetně. Nejbližší volný termín je 11. 7.",
     cats:[
       {id:"massage",icon:"♨",label:"Masáže",desc:"Thai, olejové, kamenné a další"},
@@ -159,6 +160,7 @@ const T={
     okNote:"We'll contact you shortly to confirm your appointment.",
     footer:"Bělohorská 1686/118, Prague 6 – Břevnov\n+420 778 085 666\nMon–Fri 9am–9pm · Sat–Sun 10am–9pm",
     priceOnReq:"Price on request",min:"min",sale:"-30%",
+    privacyPre:"By sending the booking, you confirm that you have read our ",privacyLink:"Privacy Policy",privacySuf:".",
     bookingPaused:"Bookings are temporarily paused through 10 July. The earliest available date is 11 July.",
     cats:[
       {id:"massage",icon:"♨",label:"Massages",desc:"Thai, oil, hot stone & more"},
@@ -476,6 +478,11 @@ function s4(){
   ta.addEventListener("input",()=>{S.form.note=ta.value});
   nfg.appendChild(ta);
   w.appendChild(nfg);
+  w.appendChild(el("div",{style:"font-size:13px;color:var(--muted);line-height:1.5;margin-top:1rem"},
+    tx().privacyPre,
+    el("a",{href:"/ochrana-osobnich-udaju",target:"_blank",rel:"noopener",style:"color:var(--gold);text-decoration:underline"},tx().privacyLink),
+    tx().privacySuf
+  ));
   w.appendChild(el("div",{cls:"row-r"},el("button",{cls:"btn btn-gold",onclick:async()=>{
     if(!S.form.name.trim()){alert(S.lang==="cs"?"Prosím zadejte jméno":"Please enter your name");return;}
     if(!S.form.phone.trim()||S.form.phone.length!==9){alert(S.lang==="cs"?"Prosím zadejte přesně 9 číslic":"Please enter exactly 9 digits");return;}

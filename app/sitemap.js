@@ -15,5 +15,6 @@ export default function sitemap() {
   return [
     { url: `${base}/`, changeFrequency: 'monthly', priority: 1 },
     ...services.map((slug) => ({ url: `${base}/${slug}`, changeFrequency: 'monthly', priority: 0.8 })),
+    { url: `${base}/ochrana-osobnich-udaju`, changeFrequency: 'yearly', priority: 0.2 },
   ]
 }

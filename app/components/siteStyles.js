@@ -75,6 +75,7 @@ footer{background:var(--ink2);border-top:1px solid var(--border);padding:2rem 1.
 .footer-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;color:var(--muted);margin-bottom:.5rem}
 .footer-logo em{font-style:italic}
 .footer-copy{font-size:15px;color:var(--muted);letter-spacing:.06em}
+.footer-legal{display:inline-block;margin-top:.6rem;font-size:13px;color:var(--muted);text-decoration:underline;opacity:.75}
 
 @media(max-width:760px){
   nav{padding:1rem 1.25rem}

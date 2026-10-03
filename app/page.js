@@ -213,6 +213,7 @@ export default function Home() {
 <footer>
   <div className="footer-logo">Golden<em>Zen</em></div>
   <div className="footer-copy" id="ft-copy">© 2026 GoldenZen · Bělohorská 1686/118, Praha 6 – Břevnov</div>
+  <a href="/ochrana-osobnich-udaju" className="footer-legal" id="ft-legal">Ochrana osobních údajů</a>
 </footer>
       <HomeBehavior />
     </>

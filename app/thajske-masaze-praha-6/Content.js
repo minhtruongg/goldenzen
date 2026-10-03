@@ -154,7 +154,7 @@ function Inner() {
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </>
   )
 }
