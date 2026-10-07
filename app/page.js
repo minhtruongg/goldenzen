@@ -212,6 +212,14 @@ export default function Home() {
 
 <footer>
   <div className="footer-logo">Golden<em>Zen</em></div>
+  <div className="footer-links" role="navigation" aria-label="Služby">
+    <a href="/kadernictvi-praha-6" id="ft-s1">Kadeřnictví</a>
+    <a href="/panske-kadernictvi-praha-6" id="ft-s2">Pánské kadeřnictví</a>
+    <a href="/damske-kadernictvi-praha-6" id="ft-s3">Dámské kadeřnictví</a>
+    <a href="/barveni-vlasu-praha-6" id="ft-s4">Barvení vlasů</a>
+    <a href="/masaze-praha-6" id="ft-s5">Masáže</a>
+    <a href="/thajske-masaze-praha-6" id="ft-s6">Thajské masáže</a>
+  </div>
   <div className="footer-copy" id="ft-copy">© 2026 GoldenZen · Bělohorská 1686/118, Praha 6 – Břevnov</div>
   <a href="/ochrana-osobnich-udaju" className="footer-legal" id="ft-legal">Ochrana osobních údajů</a>
 </footer>

@@ -141,6 +141,9 @@ section{padding:5rem 1.5rem}
 footer{background:var(--ink2);border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center}
 .footer-logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:400;color:var(--muted);margin-bottom:.5rem}
 .footer-logo em{font-style:italic}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.4rem;margin-bottom:1rem}
+.footer-links a{font-size:14px;color:var(--muted);text-decoration:none}
+.footer-links a:hover{text-decoration:underline}
 .footer-copy{font-size:15px;color:var(--muted);letter-spacing:.06em}
 .footer-legal{display:inline-block;margin-top:.6rem;font-size:13px;color:var(--muted);text-decoration:underline;opacity:.75}
 

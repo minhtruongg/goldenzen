@@ -33,7 +33,7 @@ export const LANG = {
     "ci-ig-l":"Instagram","ci-fb-l":"Facebook",
     "bk-ey":"Online rezervace","bk-ttl":"Rezervujte si <em>svůj čas</em><br>ještě dnes",
     "bk-sub":"Vyberte službu, zvolte termín a my se postaráme o zbytek. Rychle, jednoduše, online.",
-    "bk-cta":"Přejít na rezervaci","ft-copy":"© 2026 GoldenZen · Bělohorská 1686/118, Praha 6 – Břevnov","ft-legal":"Ochrana osobních údajů"
+    "bk-cta":"Přejít na rezervaci","ft-copy":"© 2026 GoldenZen · Bělohorská 1686/118, Praha 6 – Břevnov","ft-legal":"Ochrana osobních údajů","ft-s1":"Kadeřnictví","ft-s2":"Pánské kadeřnictví","ft-s3":"Dámské kadeřnictví","ft-s4":"Barvení vlasů","ft-s5":"Masáže","ft-s6":"Thajské masáže"
   },
   en:{
     "sc1-more":"Learn more →","sc7-more":"Learn more →",
@@ -68,6 +68,6 @@ export const LANG = {
     "ci-ig-l":"Instagram","ci-fb-l":"Facebook",
     "bk-ey":"Online booking","bk-ttl":"Book your <em>time</em><br>today",
     "bk-sub":"Choose a service, pick a slot, and we'll take care of the rest. Fast, simple, online.",
-    "bk-cta":"Go to booking","ft-copy":"© 2026 GoldenZen · Bělohorská 1686/118, Prague 6 – Břevnov","ft-legal":"Privacy Policy"
+    "bk-cta":"Go to booking","ft-copy":"© 2026 GoldenZen · Bělohorská 1686/118, Prague 6 – Břevnov","ft-legal":"Privacy Policy","ft-s1":"Hairdressing","ft-s2":"Men's hairdressing","ft-s3":"Women's hairdressing","ft-s4":"Hair colouring","ft-s5":"Massages","ft-s6":"Thai massages"
   }
 }
