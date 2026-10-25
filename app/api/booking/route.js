@@ -2,6 +2,7 @@ import { dbInsert } from '@/lib/db';
 import { upsertCustomerByPhone } from '@/lib/customers';
 import { confirmKeyboard, ownerIds, sendEmail, emails } from '@/lib/notify';
 
+
 export async function POST(req) {
   try {
     const body = await req.json();
@@ -62,18 +63,32 @@ export async function POST(req) {
 
     // 3. Send Telegram to every recipient. Buttons only when the booking is saved.
     const text = saved ? msg : `${msg}\n\n⚠️ Chưa lưu được vào hệ thống. Hãy ghi lại lịch này.`;
-    await Promise.all(ownerIds().map(chat_id =>
+    const sendTelegram = (chat_id, markdown) =>
       fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id,
-          text,
-          parse_mode: 'Markdown',
-          ...(saved && { reply_markup: confirmKeyboard(refNumber, date, time) }),
+          // Plain-text retry drops the asterisks so no stray markup shows.
+          text: markdown ? text : text.replace(/\*/g, ''),
+          ...(markdown && { parse_mode: 'Markdown' }),
+          ...(saved && { reply_markup: confirmKeyboard(refNumber) }),
         }),
-      }).then(r => { if (!r.ok) r.text().then(e => console.error('Telegram error:', e)); })
-    ));
+      });
+
+    await Promise.all(ownerIds().map(async (chat_id) => {
+      try {
+        let r = await sendTelegram(chat_id, true);
+        if (!r.ok) {
+          // A name like "Anna_K" can break Markdown. Send again as plain text.
+          console.error('Telegram Markdown failed, retrying plain:', await r.text());
+          r = await sendTelegram(chat_id, false);
+          if (!r.ok) console.error('Telegram error:', await r.text());
+        }
+      } catch (e) {
+        console.error('Telegram send failed:', e);
+      }
+    }));
 
     if (!saved) {
       return Response.json({ ok: false, error: 'Không lưu được vào cơ sở dữ liệu' }, { status: 500 });

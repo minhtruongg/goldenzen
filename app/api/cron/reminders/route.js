@@ -34,7 +34,7 @@ export async function GET(req) {
   }
   const now = Date.now();
   const ago = (min) => new Date(now - min * 60000).toISOString();
-  const out = { reminders: 0, nudges: 0, rejections: 0 };
+  const out = { reminders: 0, nudges: 0 };
 
   // 1. Reminders: confirmed bookings starting in 23 to 25 hours.
   const days = [0, 1, 2].map((n) => pragueDate(now + n * 86400000));
@@ -70,26 +70,12 @@ export async function GET(req) {
         tg("sendMessage", {
           chat_id,
           text: `⏰ Vẫn chờ xác nhận\n${b.client_name}, ${b.service_name}\n${b.date} ${b.time}\n${b.client_phone}`,
-          reply_markup: confirmKeyboard(b.ref, b.date, b.time),
+          reply_markup: confirmKeyboard(b.ref),
         })
       )
     );
     await db.from("bookings").update({ nudged_at: new Date().toISOString() }).eq("id", b.id);
     out.nudges++;
-  }
-
-  // 3. Fallback: rejected but no offer chosen. Send the plain rejection after 15 minutes.
-  const { data: open } = await db
-    .from("bookings")
-    .select("*")
-    .eq("status", "rejected")
-    .is("notified_at", null)
-    .lt("rejected_at", ago(15))
-    .gt("rejected_at", ago(1440));
-  for (const b of open || []) {
-    await sendEmail(b.client_email, emails.rejected(b, null));
-    await db.from("bookings").update({ notified_at: new Date().toISOString() }).eq("id", b.id);
-    out.rejections++;
   }
 
   return Response.json(out);
