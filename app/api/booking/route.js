@@ -1,5 +1,6 @@
 import { dbInsert } from '@/lib/db';
 import { upsertCustomerByPhone } from '@/lib/customers';
+import { confirmKeyboard, ownerIds, sendEmail, emails } from '@/lib/notify';
 
 export async function POST(req) {
   try {
@@ -27,43 +28,59 @@ export async function POST(req) {
       note ? `*Ghi chú:* ${note}` : null,
     ].filter(Boolean).join('\n');
 
-    // 2. Send Telegram — always, to all recipients. Kept as a safety net:
-    // if the database write below fails, this message is still the record.
-    const chatIds = [process.env.TELEGRAM_CHAT_ID, process.env.TELEGRAM_CHAT_ID_2].filter(Boolean);
-    await Promise.all(chatIds.map(chat_id =>
+    // 2. Save to the database FIRST, so the Telegram buttons have a booking to act on.
+    // A failure here no longer throws: Telegram still goes out below as the safety net.
+    let saved = false;
+    try {
+      // Link (or create) the customer record by phone number.
+      const customer_id = await upsertCustomerByPhone({
+        name: client_name,
+        phone: client_phone,
+        email: client_email,
+      });
+
+      const { error: bookingErr } = await dbInsert('bookings', {
+        ref: refNumber,
+        service_category,
+        service_name,
+        client_name,
+        client_phone,
+        client_email: client_email || '',
+        date,
+        time,
+        note: note || '',
+        status: 'pending',
+        customer_id,
+        price: price_final ?? null,
+        duration: duration ?? null,
+      });
+      saved = !bookingErr;
+      if (bookingErr) console.error('Booking insert error:', bookingErr);
+    } catch (dbErr) {
+      console.error('Booking save error:', dbErr);
+    }
+
+    // 3. Send Telegram to every recipient. Buttons only when the booking is saved.
+    const text = saved ? msg : `${msg}\n\n⚠️ Chưa lưu được vào hệ thống. Hãy ghi lại lịch này.`;
+    await Promise.all(ownerIds().map(chat_id =>
       fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id, text: msg, parse_mode: 'Markdown' }),
+        body: JSON.stringify({
+          chat_id,
+          text,
+          parse_mode: 'Markdown',
+          ...(saved && { reply_markup: confirmKeyboard(refNumber) }),
+        }),
       }).then(r => { if (!r.ok) r.text().then(e => console.error('Telegram error:', e)); })
     ));
 
-    // 3. Save to the database — awaited, so a failure is caught instead of silent.
-    // Link (or create) the customer record by phone number.
-    const customer_id = await upsertCustomerByPhone({
-      name: client_name,
-      phone: client_phone,
-      email: client_email,
-    });
-
-    const { error: bookingErr } = await dbInsert('bookings', {
-      service_category,
-      service_name,
-      client_name,
-      client_phone,
-      client_email: client_email || '',
-      date,
-      time,
-      note: note || '',
-      status: 'pending',
-      customer_id,
-      price: price_final ?? null,
-      duration: duration ?? null,
-    });
-
-    if (bookingErr) {
+    if (!saved) {
       return Response.json({ ok: false, error: 'Không lưu được vào cơ sở dữ liệu' }, { status: 500 });
     }
+
+    // 4. Tell the customer the request arrived (skipped when no email was given).
+    await sendEmail(client_email, emails.waiting({ client_name, service_name, date, time }));
 
     return Response.json({ ok: true });
 
