@@ -70,7 +70,7 @@ export async function GET(req) {
         tg("sendMessage", {
           chat_id,
           text: `⏰ Vẫn chờ xác nhận\n${b.client_name}, ${b.service_name}\n${b.date} ${b.time}\n${b.client_phone}`,
-          reply_markup: confirmKeyboard(b.ref),
+          reply_markup: confirmKeyboard(b.ref, b.date, b.time),
         })
       )
     );

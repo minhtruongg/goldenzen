@@ -70,7 +70,7 @@ export async function POST(req) {
           chat_id,
           text,
           parse_mode: 'Markdown',
-          ...(saved && { reply_markup: confirmKeyboard(refNumber) }),
+          ...(saved && { reply_markup: confirmKeyboard(refNumber, date, time) }),
         }),
       }).then(r => { if (!r.ok) r.text().then(e => console.error('Telegram error:', e)); })
     ));
