@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, follow">
 <title>GoldenZen — Rezervace</title>
+<script id="cookieyes" src="https://cdn-cookieyes.com/client_data/98c3f84c2fe316d31d65da7fc9426808/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17694983340"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17694983340');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -478,25 +486,30 @@ function s4(){
     if(!S.form.phone.trim()||S.form.phone.length!==9){alert(S.lang==="cs"?"Prosím zadejte přesně 9 číslic":"Please enter exactly 9 digits");return;}
     if(!S.form.email.trim()||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(S.form.email)){alert(S.lang==="cs"?"Prosím zadejte platný e-mail":"Please enter a valid email address");return;}
     try{
-      await fetch('/api/booking',{
+      const res=await fetch('/api/booking',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
-          service_category:S.cat.id,
-          service_name:n(S.svc),
-          client_name:S.form.name,
-          client_phone:S.form.phone,
-          client_email:S.form.email,
-          date:S.date,
-          time:S.time,
-          note:S.form.note,
-          price_original:S.svc.orig||origPrice(S.svc.price),
-          price_final:S.svc.price,
-          duration:S.svc.dur,
+        service_category:S.cat.id,
+        service_name:n(S.svc),
+        client_name:S.form.name,
+        client_phone:S.form.phone,
+        client_email:S.form.email,
+        date:S.date,
+        time:S.time,
+        note:S.form.note,
+        price_original:S.svc.orig||origPrice(S.svc.price),
+        price_final:S.svc.price,
+        duration:S.svc.dur,
         })
       });
+      if(!res.ok)throw new Error("Booking failed: "+res.status);
+      if(typeof gtag==="function")gtag('event','conversion',{'send_to':'AW-17694983340/UKJJCKqQmtQbEKyJ0PVB'});
       S.lastRef=mkRef();S.step=5;render();
-    }catch(e){console.error(e)}
+      }catch(e){
+  console.error(e);
+  alert(S.lang==="cs"?"Rezervaci se nepodařilo odeslat. Zkuste to prosím znovu.":"The booking could not be sent. Please try again.");
+}
   }},tx().submit)));
   return w;
 }
