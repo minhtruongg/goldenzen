@@ -57,7 +57,7 @@ export default function RootLayout({ children }) {
             'https://connect.facebook.net/en_US/fbevents.js');
 
             fbq('consent', 'revoke');
-            fbq('init', '1451521910156527');
+            fbq('init', '911690525075195');
             fbq('track', 'PageView');
 
             document.addEventListener('cookieyes_consent_update', function (e) {
